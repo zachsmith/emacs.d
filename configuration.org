@@ -7,7 +7,6 @@ Lots of ideas stolen (with admiration) from [[https://github.com/hrs][Harry R. S
 
 * Core Package Management Setup
 
-Use [[https://github.com/jwiegley/use-package][use-package]] for managing packages in emacs.
 Setup some default package archives & initialize.
 
 #+BEGIN_SRC emacs-lisp
@@ -17,7 +16,19 @@ Setup some default package archives & initialize.
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
+#+END_SRC
 
+I make use of [[https://github.com/emacsmirror/diminish][diminish]] so make sure it is installed.
+
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'diminish)
+  (package-refresh-contents)
+  (package-install 'diminish))
+#+END_SRC
+
+Use [[https://github.com/jwiegley/use-package][use-package]] for managing packages in emacs.
+
+#+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -29,11 +40,6 @@ Setup some default package archives & initialize.
  (require 'use-package))
 #+END_SRC
 
-I make use of [[https://github.com/emacsmirror/diminish][diminish]] mode with =use-package= so make sure it is installed.
-
-#+BEGIN_SRC
-(use-package diminish)
-#+END_SRC
 * Basic Configurations
 
 Use [[https://github.com/hrs/sensible-defaults.el/blob/master/sensible-defaults.el][sensible-defaults]]
