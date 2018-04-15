@@ -5,12 +5,41 @@
 
 Lots of ideas stolen (with admiration) from [[https://github.com/hrs][Harry R. Schwartz]].
 
+* Core Package Management Setup
+
+Use [[https://github.com/jwiegley/use-package][use-package]] for managing packages in emacs.
+Setup some default package archives & initialize.
+
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+
+(eval-when-compile
+ (require 'use-package))
+#+END_SRC
+
+I make use of [[https://github.com/emacsmirror/diminish][diminish]] mode with =use-package= so make sure it is installed.
+
+#+BEGIN_SRC
+(use-package diminish)
+#+END_SRC
 * Basic Configurations
 
 Use [[https://github.com/hrs/sensible-defaults.el/blob/master/sensible-defaults.el][sensible-defaults]]
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/packages/sensible-defaults.el")
+(load-file "~/.emacs.d/packages/sensible-defaults.el/sensible-defaults.el")
 (sensible-defaults/use-all-settings)
 (sensible-defaults/use-all-keybindings)
 (sensible-defaults/backup-to-temp-directory)
@@ -50,30 +79,7 @@ Don't litter my init file with custom settings
 (load custom-file 'noerror)
 #+END_SRC
 
-
 * Packages
-
-Use =use-package= for managing packages in emacs. Setup some default package
-archives & initialize.
-
-#+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(setq use-package-verbose t)
-(setq use-package-always-ensure t)
-
-(eval-when-compile
- (require 'use-package))
-#+END_SRC
 
 Compile packages and prefer the newest version
 
@@ -407,7 +413,6 @@ Handy, dandy rest client
 #+BEGIN_SRC emacs-lisp
 (use-package restclient)
 #+END_SRC
-
 
 * Writing
 ** Markdown
