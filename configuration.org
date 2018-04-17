@@ -212,6 +212,11 @@ emacs frames behave a bit more like tmux when rearranging.
   (global-set-key (kbd "C-x M-,") 'rotate-frame-anticlockwise))
 #+END_SRC
 
+** Use winner-mode
+
+#+BEGIN_SRC emacs-lisp
+(winner-mode 1)
+#+END_SRC
 * Multiple Cursors
 
 Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[https://github.com/magnars][Magnar Sveen]]
