@@ -128,19 +128,34 @@ Enable auto-complete - I use the [[https://github.com/auto-complete/auto-complet
   (zxmth/global-auto-complete-mode t))
 #+END_SRC
 
-** Ivy
+** Ivy / Counsel / Swiper
 
-Use [[https://github.com/abo-abo/swiper][Ivy]] as a generic completion front-end
+Use [[https://github.com/abo-abo/swiper][Ivy, Counsel, and Swiper]] for completion front-end and search
 
 #+BEGIN_SRC emacs-lisp
 (use-package ivy
+  :ensure t
   :diminish ivy-mode
+  :bind
+  ("C-c C-r" . 'ivy-resume)
+  ("<f6>" . 'ivy-resume)
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) "))
-#+END_SRC
 
+(use-package counsel
+  :ensure t
+  :bind
+  ("M-x" . counsel-M-x)
+  :config
+  (counsel-mode 1))
+
+(use-package swiper
+  :ensure t
+  :bind
+  ("\C-s" . 'swiper))
+#+END_SRC
 ** Silver Searcher
 
 I have gotten pretty used to using Ag and find it handy with projectile.
