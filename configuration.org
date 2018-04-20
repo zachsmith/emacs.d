@@ -306,9 +306,10 @@ Use syntax highlighting in source blocks while editing
 (setq org-src-fontify-natively t)
 #+END_SRC
 
-elisp template for org-mode
+Make TAB act as if it were issued in the language's major mode
+
 #+BEGIN_SRC emacs-lisp
-(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 #+END_SRC
 
 elisp template for org-mode
