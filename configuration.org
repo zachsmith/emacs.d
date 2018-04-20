@@ -319,13 +319,48 @@ elisp template for org-mode
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 #+END_SRC
 
-Store org files in ~/org /consider moving to Dropbox for mobile sync/
+Store org files in ~/Dropbox/Org
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/org")
+(setq org-directory "~/Dropbox/Org")
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
   (concat (file-name-as-directory org-directory) filename))
 (setq org-index-file (org-file-path "index.org"))
+(setq org-inbox-file (org-file-path "inbox.org"))
+(setq org-archive-location
+   (concat (org-file-path "archive.org") "::* From %s"))
+#+END_SRC
+
+Capture tasks in /inbox.org/ but copy them into the /index.org/ file and clean
+up the /inbox/
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/move-tasks-from-inbox ()
+    "Move contents of the org-inbox-file file to end of org-index-file and clear contents of org-inbox-file"
+    (interactive)
+    (when (file-exists-p org-inbox-file)
+        (save-excursion
+          (find-file org-index-file)
+          (goto-char (point-max))
+          (insert-file-contents org-inbox-file)
+          ;; clear contents of the inbox after moving contents
+          (find-file org-inbox-file)
+          (delete-region (point-min) (point-max))
+          (save-buffer)
+          (kill-buffer))))
+  (define-key org-mode-map (kbd "C-c C-x TAB") 'zxmth/move-tasks-from-inbox)
+#+END_SRC
+
+Quickly open my index file
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/open-index-file ()
+    "Open the file defined by variable org-index-file"
+    (interactive)
+    ;; first move any tasks over from the inbox
+    (zxmth/move-tasks-from-inbox)
+    (find-file org-index-file)
+    (end-of-buffer))
+  (global-set-key (kbd "C-c i") 'zxmth/open-index-file)
 #+END_SRC
 
 Define a few capture templates
