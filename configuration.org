@@ -246,17 +246,27 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
 #+END_SRC
 * Make Emacs look nicer
 
-** Use [[https://github.com/bbatsov/solarized-emacs][Solarized theme]]
+** Use [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
 
 #+BEGIN_SRC emacs-lisp
-(use-package solarized-theme
-  :config
-  (setq solarized-high-contrast-mode-line t))
+  (use-package material-theme
+    :ensure t
+    :config
+    ;; remove the box style from org-levels
+    (dotimes (level 8)
+      (set-face-attribute (intern-soft (format "org-level-%s" (+ 1 level)))
+                          nil
+                          :height 'unspecified
+                          :background 'unspecified
+                          :box 'unspecified))
 
-(if (display-graphic-p)
-    (load-theme 'solarized-dark t) ;; favorite theme
-  (load-theme 'wombat' t)) ;; works well enough in terminal
-;;(load-theme 'solarized-dark t)
+    ;; make the block begin & end the same as the block body
+    (let ((attributes '(org-block-end-line org-block-begin-line)))
+      (dolist (attr attributes)
+        (set-face-attribute attr
+                            nil
+                            :box 'unspecified
+                            :background "#1c1f26"))))
 #+END_SRC
 * UI preferences
 
