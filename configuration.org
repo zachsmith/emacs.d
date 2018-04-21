@@ -309,7 +309,7 @@ Make the frame title match the current project as defined by Projectile
 ** Diminish minor modes
 
 #+BEGIN_SRC emacs-lisp
-(diminish 'flyspell-mode)
+(diminish 'auto-revert-mode)
 #+END_SRC
 * Org Mode Settings
 
