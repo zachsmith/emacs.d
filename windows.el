@@ -1,3 +1,4 @@
+;; Spelling
 (setq ispell-program-name "c:\\msys64\\mingw64\\bin\\hunspell.exe")
 (setq ispell-dictionary "en_US")
 (setq ispell-local-dictionary-alist
@@ -7,3 +8,11 @@
 ;; to make ispell load properly on first hook load
 (flyspell-mode)
 (flyspell-mode-off)
+
+;; -----------
+
+;; Org File Locations
+(setq org-directory "C:/Users/zach/Dropbox/Org"
+      org-index-file (org-file-path "index.org")
+      org-inbox-file (org-file-path "inbox.org")
+      org-archive-location (concat (org-file-path "archive.org") "::* From %s"))
