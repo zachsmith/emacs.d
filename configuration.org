@@ -146,6 +146,7 @@ Use [[https://github.com/abo-abo/swiper][Ivy, Counsel, and Swiper]] for completi
 
 (use-package counsel
   :ensure t
+  :diminish counsel-mode
   :bind
   ("M-x" . counsel-M-x)
   :config
@@ -493,8 +494,12 @@ Handy, dandy rest client
 #+BEGIN_SRC emacs-lisp
 (use-package restclient)
 #+END_SRC
-
 * Writing
+** Flyspell
+#+BEGIN_SRC emacs-lisp
+  (use-package flyspell
+    :diminish 'flyspell-mode)
+#+END_SRC
 ** Markdown
 
 I like to write in markdown somtimes.
