@@ -260,10 +260,14 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
 ** Use [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
 
 #+BEGIN_SRC emacs-lisp
-  (use-package material-theme
-    :ensure t
-    :config
-    ;; remove the box style from org-levels
+
+  (defun zxmth/load-material-theme (&optional default-material-theme)
+    (unless default-material-theme (setq default-material-theme material))
+    (load-theme default-material-theme)
+    (zxmth/customize-material-theme))
+
+  (defun zxmth/customize-material-theme ()
+    ;; remove the box style for org-levels
     (dotimes (level 8)
       (set-face-attribute (intern-soft (format "org-level-%s" (+ 1 level)))
                           nil
@@ -274,10 +278,30 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
     ;; make the block begin & end the same as the block body
     (let ((attributes '(org-block-end-line org-block-begin-line)))
       (dolist (attr attributes)
-        (set-face-attribute attr
-                            nil
-                            :box 'unspecified
-                            :background "#1c1f26"))))
+      (set-face-attribute attr
+                          nil
+                          :box 'unspecified
+                          :background "#1c1f26"))))
+
+  (defun zxmth/disable-enabled-themes ()
+    "Disable all themes currently enabled"
+    (interactive)
+    (mapc #'disable-theme custom-enabled-themes))
+
+  (defun zxmth/toggle-material-themes ()
+    "Toggle between two material & material-light themes and make some customizations"
+    (interactive)
+    (setq themes-to-toggle '(material material-light))
+    (setq theme-to-enable (car (remove (car custom-enabled-themes) themes-to-toggle)))
+    (zxmth/disable-enabled-themes)
+    (zxmth/load-material-theme theme-to-enable))
+
+  (use-package material-theme
+      :ensure t
+      :config
+      (zxmth/customize-material-theme))
+
+  (global-set-key (kbd "C-x /") 'zxmth/toggle-material-themes)
 #+END_SRC
 * UI preferences
 
