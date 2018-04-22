@@ -337,6 +337,20 @@ Make the frame title match the current project as defined by Projectile
 #+END_SRC
 * Org Mode Settings
 
+Some basic [[https://orgmode.org][Org-mode]] configurations
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cb" 'org-iswitchb)
+  (setq org-log-done 'time)
+  (setq org-todo-keywords
+    '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+
+  (setq org-todo-keyword-faces
+    '(("STARTED" . org-warning)
+      ("WAITING" . (:foreground "lightblue" :background "blue" :weight bold))
+      ("CANCELED" (:foreground "white" :background "gray"))))
+#+END_SRC
 Use pretty bullets for
 
 #+BEGIN_SRC emacs-lisp
@@ -372,8 +386,11 @@ Store org files in ~/Dropbox/Org
   (concat (file-name-as-directory org-directory) filename))
 (setq org-index-file (org-file-path "index.org"))
 (setq org-inbox-file (org-file-path "inbox.org"))
+(setq org-habit-file (org-file-path "habits.org"))
 (setq org-archive-location
    (concat (org-file-path "archive.org") "::* From %s"))
+
+(setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
 #+END_SRC
 
 Capture tasks in /inbox.org/ but copy them into the /index.org/ file and clean
@@ -411,13 +428,36 @@ Quickly open my index file
 Define a few capture templates
 
 #+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-      '(("t" "Todo"
-         entry
-         (file+headline org-index-file "Inbox")
-         "* TODO %?\n")))
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-capture-templates
+        '(("t" "TODO"
+           entry
+           (file+headline org-index-file "Tasks")
+           "** TODO %?\n")))
 #+END_SRC
 
+Quick capture TODO
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/org-capture-todo ()
+    "Prompt to quickly capture a TODO using the TODO template"
+    (interactive)
+    (org-capture :keys "t"))
+  (global-set-key (kbd "M-n") 'zxmth/org-capture-todo)
+#+END_SRC
+
+Archive DONE and CANCELED tasks
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/org-archive-complete-tasks (&optional archive-states)
+    "Move DONE and CANCELED items to the org-archive-location"
+    (interactive)
+    (unless archive-states (setq archive-states '("DONE" "CANCELED")))
+    (dolist (state archive-states)
+      (org-map-entries 'org-archive-subtree (concat "/" state))))
+
+  (define-key org-mode-map (kbd "\C-c ]") 'zxmth/org-archive-complete-tasks)
+#+END_SRC
 Enable spell-checking...I'm rael bad at spelling.
 
 #+BEGIN_SRC emacs-lisp
