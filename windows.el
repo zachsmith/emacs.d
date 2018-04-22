@@ -15,4 +15,7 @@
 (setq org-directory "C:/Users/zach/Dropbox/Org"
       org-index-file (org-file-path "index.org")
       org-inbox-file (org-file-path "inbox.org")
+      org-habit-file (org-file-path "habits.org")
       org-archive-location (concat (org-file-path "archive.org") "::* From %s"))
+
+(setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
