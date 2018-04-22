@@ -113,11 +113,11 @@ Compile packages and prefer the newest version
 I'd resisted this for a while but see some benefit to using vim bindings
 
 #+BEGIN_SRC emacs-lisp
-    (use-package evil
-      :ensure t
-      :config
-      (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-      (evil-mode 1))
+  (use-package evil
+    :ensure t
+    :config
+    (setq evil-default-state 'emacs) ;; use emacs state by default and toggle evil with C-z
+    (evil-mode 1))
 #+END_SRC
 * Searching
 
