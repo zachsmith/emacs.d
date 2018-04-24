@@ -322,13 +322,19 @@ Make the frame title match the current project as defined by Projectile
 (setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
-** Powerline
+** Use Telephone Line - like Powerline...but different!
 
 #+BEGIN_SRC emacs-lisp
-(use-package powerline
-  :config
-  (setq powerline-arrow-shape 'arrow)
-  (powerline-default-theme))
+  (use-package telephone-line
+    :init
+    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+        telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+        telephone-line-primary-right-separator 'telephone-line-cubed-right
+        telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right
+        telephone-line-height 24)
+    :config
+    (when (display-graphic-p)
+      (telephone-line-mode 1)))
 #+END_SRC
 ** Diminish minor modes
 
