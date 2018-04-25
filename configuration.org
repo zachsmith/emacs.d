@@ -63,7 +63,10 @@ Show line numbers by default and use [[https://elpa.gnu.org/packages/nlinum.html
 
 Start the server by default
 #+BEGIN_SRC emacs-lisp
-(server-start)
+  (require 'server)
+  (if (server-running-p)
+      (message "Server already running - Not starting server for this session")
+    (server-start))
 #+END_SRC
 
 I like to see the column numbers as well as line numbers
