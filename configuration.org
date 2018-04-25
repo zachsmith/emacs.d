@@ -193,6 +193,7 @@ I like having keys to more easily jump around open buffers
 #+END_SRC
 
 I often resize buffers - bind keys to resizing that are similar to navigation
+Use /C-u #/ to make larger resize increments.
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c K") 'enlarge-window)
@@ -465,7 +466,7 @@ Archive DONE and CANCELED tasks
     (dolist (state archive-states)
       (org-map-entries 'org-archive-subtree (concat "/" state))))
 
-  (define-key org-mode-map (kbd "\C-c ]") 'zxmth/org-archive-complete-tasks)
+  (define-key org-mode-map (kbd "\C-c A") 'zxmth/org-archive-complete-tasks)
 #+END_SRC
 Enable spell-checking...I'm rael bad at spelling.
 
@@ -474,7 +475,8 @@ Enable spell-checking...I'm rael bad at spelling.
 #+END_SRC
 
 Build a custom agenda view that shows me TODOs marked as priority #A on top
-followed by my tasks scheduled for the current day and finally, all of my TODOs
+followed by my tasks scheduled for the current day, tasks marked as started,
+tasks marked as waiting, and then a list of all of my remaining TODOs
 
 #+BEGIN_SRC emacs-lisp
   (defun zxmth/org-skip-subtree-if-priority (priority)
