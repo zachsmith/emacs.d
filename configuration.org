@@ -516,6 +516,17 @@ followed by my tasks scheduled for the current day and finally, all of my TODOs
                                                      (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "Backlog:")))))))
+
+  (defun zxmth/pop-to-org-agenda (&optional split &optional command)
+    "Visit the org agenda in the current window or a SPLIT
+     Opening in current window causes other windows to be deleted
+     COMMAND key tells org-agenda to open specific view."
+    (interactive "P")
+    (unless command (setq command "d"))
+    (org-agenda nil command);; open "Daily Agenda" custom command
+    (when (not split)
+      (delete-other-windows)))
+  (global-set-key (kbd "C-x !") 'zxmth/pop-to-org-agenda)
 #+END_SRC
 * Git
 
