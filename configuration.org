@@ -474,7 +474,7 @@ Build a custom agenda view that shows me TODOs marked as priority #A on top
 followed by my tasks scheduled for the current day and finally, all of my TODOs
 
 #+BEGIN_SRC emacs-lisp
-    (defun zxmth/org-skip-subtree-if-priority (priority)
+  (defun zxmth/org-skip-subtree-if-priority (priority)
       "Skip an agenda subtree if it has a priority of PRIORITY.
        PRIORITY may be one of the characters ?A, ?B, or ?C."
       (let ((subtree-end (save-excursion (org-end-of-subtree t)))
@@ -491,15 +491,29 @@ followed by my tasks scheduled for the current day and finally, all of my TODOs
           subtree-end
         nil)))
 
+  (defun zxmth/org-skip-subtree-if-state-in (states)
+    "Skip an agenda subtree if it has a todo state found in STATES"
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (skip nil))
+      (dolist (state states skip)
+        (setq task-state (org-entry-get nil "TODO"))
+        (if (string= task-state state)
+            (setq skip subtree-end)))))
+
   (setq org-agenda-custom-commands
         '(("d" "Daily Agenda"
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-Priority Tasks:")))
             (agenda "" ((org-agenda-ndays 1)))
+            (tags "TODO=\"STARTED\""
+                  ((org-agenda-overriding-header "Started:")))
+            (tags "TODO=\"WAITING\""
+                  ((org-agenda-overriding-header "Waiting:")))
             (alltodo ""
                      ((org-agenda-skip-function '(or (zxmth/org-skip-subtree-if-habit)
                                                      (zxmth/org-skip-subtree-if-priority ?A)
+                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "Backlog:")))))))
 #+END_SRC
