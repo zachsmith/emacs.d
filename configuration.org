@@ -510,7 +510,7 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-Priority Tasks:")))
-            (agenda "" ((org-agenda-ndays 1)))
+            (agenda "" ((org-agenda-span 1)))
             (tags "TODO=\"STARTED\""
                   ((org-agenda-overriding-header "Started:")))
             (tags "TODO=\"WAITING\""
