@@ -521,16 +521,13 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "Backlog:")))))))
 
-  (defun zxmth/pop-to-org-agenda (&optional split &optional command)
-    "Visit the org agenda in the current window or a SPLIT
-     Opening in current window causes other windows to be deleted
-     COMMAND key tells org-agenda to open specific view."
-    (interactive "P")
-    (unless command (setq command "d"))
-    (org-agenda nil command);; open "Daily Agenda" custom command
-    (when (not split)
-      (delete-other-windows)))
-  (global-set-key (kbd "C-x !") 'zxmth/pop-to-org-agenda)
+  (defun zxmth/pop-to-custom-daily-org-agenda ()
+    "Visit the 'Daily Agenda' org agenda in the current window
+     and close other windows"
+    (interactive)
+    (org-agenda nil "d");; open "Daily Agenda" custom command
+    (delete-other-windows))
+  (global-set-key (kbd "C-x !") 'zxmth/pop-to-custom-daily-org-agenda)
 #+END_SRC
 * Git
 
