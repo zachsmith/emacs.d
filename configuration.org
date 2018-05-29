@@ -51,15 +51,18 @@ Use [[https://github.com/hrs/sensible-defaults.el/blob/master/sensible-defaults.
 (sensible-defaults/backup-to-temp-directory)
 #+END_SRC
 
-Show line numbers by default and use [[https://elpa.gnu.org/packages/nlinum.html][nlinum]] to do it.
+Show line numbers by default. If using Emacs 26 or above, use
+/global-display-line-numbers-mode/. Otherwise, use [[https://elpa.gnu.org/packages/nlinum.html][nlinum]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package nlinum
-  :diminish
-  :config
-  (global-nlinum-mode t)
-  (setq nlinum-format "%d "))
-#+END_SRC
+  (if (< emacs-major-version 26)
+      (use-package nlinum
+        :diminish
+        :config
+        (global-nlinum-mode t)
+        (setq nlinum-format "%d "))
+    (global-display-line-numbers-mode))
+#+end_src
 
 Start the server by default
 #+BEGIN_SRC emacs-lisp
