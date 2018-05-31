@@ -91,6 +91,12 @@ Don't litter my init file with custom settings
 (load custom-file 'noerror)
 #+END_SRC
 
+If a file changes on disk, I want it to be reloaded/reverted in buffers
+
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode 1)
+#+END_SRC
+
 * Packages
 
 Compile packages and prefer the newest version
@@ -403,6 +409,14 @@ Store org files in ~/Dropbox/Org
    (concat (org-file-path "archive.org") "::* From %s"))
 
 (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
+#+END_SRC
+
+Automatically save org files - mostly needed for keeping in sync over dropbox
+since I tend to open and edit my agenda on multiple computers and don't always
+remember to save...
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 #+END_SRC
 
 Capture tasks in /inbox.org/ but copy them into the /index.org/ file and clean
