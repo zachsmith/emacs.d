@@ -325,7 +325,7 @@ I don't usually use the menu or scroll bar, and they take up useful space.
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode 0)
   (menu-bar-mode 1)
-  (when window-system
+  (when (or (window-system) (daemonp))
     (scroll-bar-mode -1))
 #+END_SRC
 
@@ -345,7 +345,7 @@ Make the frame title match the current project as defined by Projectile
         telephone-line-primary-right-separator 'telephone-line-cubed-right
         telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
     :config
-    (when (display-graphic-p)
+    (when (or (display-graphic-p) (daemonp))
       (telephone-line-mode 1)))
 #+END_SRC
 ** Diminish minor modes
