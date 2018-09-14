@@ -150,6 +150,13 @@ Enable auto-complete - I use the [[https://github.com/auto-complete/auto-complet
   (zxmth/global-auto-complete-mode t))
 #+END_SRC
 
+Use [[http://company-mode.github.io/][company-mode]] for some auto-complete functionality for packages that
+depend on it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package company)
+#+END_SRC
+
 ** Ivy / Counsel / Swiper
 
 Use [[https://github.com/abo-abo/swiper][Ivy, Counsel, and Swiper]] for completion front-end and search
