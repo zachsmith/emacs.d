@@ -567,16 +567,23 @@ Turn on spell checking for commits - I make tons of typos :-(
 Use web-mode for a host of basic web-y file formats
 
 #+BEGIN_SRC emacs-lisp
-(use-package web-mode
-  :ensure t
-  :defer t
-  :config
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-indent-style 2)
-  (setq web-mode-markup-indent-offset 2)
-(setq web-mode-sql-indent-offset 2))
+  (use-package web-mode
+    :ensure t
+    :defer t
+    :config
+    (setq web-mode-attr-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-indent-style 2)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-sql-indent-offset 2)
+    (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                  (setup-tide-mode))))
+    ;; enable typescript-tslint checker
+    (flycheck-add-mode 'typescript-tslint 'web-mode))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -597,15 +604,54 @@ Use web-mode for a host of basic web-y file formats
 (setq web-mode-enable-auto-indentation nil)
 #+END_SRC
 
+** Javascript
+
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :config
+    (setq js2-basic-offset 2)
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    (add-to-list 'interpreter-mode-alist '("node" . js2-mode)))
+#+END_SRC
+
 ** JSX
 
 Use rjsx-mode for jsx files.
 
 #+BEGIN_SRC emacs-lisp
-(use-package rjsx-mode
-  :config
-  (setq js2-basic-offset 2))
+  (use-package rjsx-mode
+     :config
+     (setq js2-basic-offset 2))
 #+END_SRC
+
+** Tide (TypeScript)
+
+#+BEGIN_SRC emacs-lisp
+    (defun setup-tide-mode ()
+      (interactive)
+      (tide-setup)
+      (flycheck-mode +1)
+      (setq flycheck-check-syntax-automatically '(save mode-enabled))
+      (eldoc-mode +1)
+      (tide-hl-identifier-mode +1)
+      ;; company is an optional dependency. You have to
+      ;; install it separately via package-install
+      ;; `M-x package-install [ret] company`
+      (company-mode +1)
+      (setq tide-format-options '(:tabSize 2 :indentSize 2)))
+
+    ;; aligns annotation to the right hand side
+    (setq company-tooltip-align-annotations t)
+
+    (use-package tide
+      :ensure t
+      :after (typescript-mode company flycheck)
+      :hook ((typescript-mode . tide-setup)
+             (typescript-mode . tide-hl-identifier-mode)
+             (before-save . tide-format-before-save)))
+#+END_SRC
+
 ** Projectile
 
 Use Projectile to help manage files related to projects.
