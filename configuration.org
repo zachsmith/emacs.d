@@ -650,7 +650,8 @@ Use rjsx-mode for jsx files.
 
   (use-package tide
     :config
-     (setq company-tooltip-align-annotations t)
+    (setq typescript-indent-level 2)
+    (setq company-tooltip-align-annotations t)
     :after (typescript-mode company flycheck)
     :hook ((typescript-mode . setup-tide-mode)
            (typescript-mode . tide-hl-identifier-mode)
