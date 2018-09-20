@@ -154,7 +154,9 @@ Use [[http://company-mode.github.io/][company-mode]] for some auto-complete func
 depend on it.
 
 #+BEGIN_SRC emacs-lisp
-(use-package company)
+  (use-package company
+    :config
+    (add-hook 'after-init-hook 'global-company-mode))
 #+END_SRC
 
 ** Ivy / Counsel / Swiper
@@ -476,7 +478,7 @@ Quick capture TODO
     "Prompt to quickly capture a TODO using the TODO template"
     (interactive)
     (org-capture :keys "t"))
-  (global-set-key (kbd "M-n") 'zxmth/org-capture-todo)
+  (global-set-key (kbd "C-c M-n") 'zxmth/org-capture-todo)
 #+END_SRC
 
 Archive DONE and CANCELED tasks
@@ -635,28 +637,27 @@ Use rjsx-mode for jsx files.
 ** Tide (TypeScript)
 
 #+BEGIN_SRC emacs-lisp
-    (defun setup-tide-mode ()
-      (interactive)
-      (tide-setup)
-      (flycheck-mode +1)
-      (setq flycheck-check-syntax-automatically '(save mode-enabled))
-      (eldoc-mode +1)
-      (tide-hl-identifier-mode +1)
-      ;; company is an optional dependency. You have to
-      ;; install it separately via package-install
-      ;; `M-x package-install [ret] company`
-      (company-mode +1)
-      (setq tide-format-options '(:tabSize 2 :indentSize 2)))
+  (defun setup-tide-mode ()
+    (interactive)
+    (message "This is being run")
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1)
+    (setq tide-format-options '(:tabSize 2 :indentSize 2)))
 
-    ;; aligns annotation to the right hand side
-    (setq company-tooltip-align-annotations t)
-
-    (use-package tide
-      :ensure t
-      :after (typescript-mode company flycheck)
-      :hook ((typescript-mode . tide-setup)
-             (typescript-mode . tide-hl-identifier-mode)
-             (before-save . tide-format-before-save)))
+  (use-package tide
+    :config
+    (add-to-list '
+     (add-hook 'typescript-mode-hook 'setup-tide-mode)
+     (add-hook 'before-save-hook 'tide-format-before-save)
+     (setq company-tooltip-align-annotations t)
+     :after (typescript-mode company flycheck)
+     :hook ((typescript-mode . tide-setup)
+            (typescript-mode . tide-hl-identifier-mode)
+            (before-save . tide-format-before-save)))
 #+END_SRC
 
 ** Projectile
