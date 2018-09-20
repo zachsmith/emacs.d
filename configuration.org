@@ -650,14 +650,11 @@ Use rjsx-mode for jsx files.
 
   (use-package tide
     :config
-    (add-to-list '
-     (add-hook 'typescript-mode-hook 'setup-tide-mode)
-     (add-hook 'before-save-hook 'tide-format-before-save)
      (setq company-tooltip-align-annotations t)
-     :after (typescript-mode company flycheck)
-     :hook ((typescript-mode . tide-setup)
-            (typescript-mode . tide-hl-identifier-mode)
-            (before-save . tide-format-before-save)))
+    :after (typescript-mode company flycheck)
+    :hook ((typescript-mode . setup-tide-mode)
+           (typescript-mode . tide-hl-identifier-mode)
+           (before-save . tide-format-before-save)))
 #+END_SRC
 
 ** Projectile
