@@ -663,16 +663,17 @@ Use rjsx-mode for jsx files.
 Use Projectile to help manage files related to projects.
 
 #+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :defer 1
-  :config
-  (projectile-mode)
-  (setq projectile-enable-caching t)
-  (setq projectile-mode-line
-        '(:eval
-          (format " [%s]"
-                  (projectile-project-name)))))
+  (use-package projectile
+    :ensure t
+    :defer 1
+    :config
+    (projectile-mode 1)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (setq projectile-enable-caching t)
+    (setq projectile-mode-line
+          '(:eval
+            (format " [%s]"
+                    (projectile-project-name)))))
 
 #+END_SRC
 
