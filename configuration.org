@@ -605,7 +605,6 @@ Use web-mode for a host of basic web-y file formats
   'web-mode
   "\\.erb$"
   "\\.html$"
-  "\\.php$"
   "\\.rhtml$")
 #+END_SRC
 
@@ -656,6 +655,16 @@ Use rjsx-mode for jsx files.
     :hook ((typescript-mode . setup-tide-mode)
            (typescript-mode . tide-hl-identifier-mode)
            (before-save . tide-format-before-save)))
+#+END_SRC
+
+** PHP
+
+#+BEGIN_SRC emacs-lisp
+  (use-package php-mode
+    :mode "\\.php\\'"
+    :ensure t
+    :defer 1)
+
 #+END_SRC
 
 ** Projectile
