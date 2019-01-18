@@ -13,6 +13,7 @@ Setup some default package archives & initialize.
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
@@ -744,6 +745,15 @@ Use Linux coding standards for C - copied from [[https://www.kernel.org/doc/html
                     (setq show-trailing-whitespace t)
                     (c-set-style "linux-tabs-only")))
 #+END_SRC
+
+** Scala
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ensime
+    :ensure t
+    :pin melpa-stable)
+#+END_SRC
+
 * Writing
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
