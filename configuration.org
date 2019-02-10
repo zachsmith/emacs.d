@@ -281,18 +281,18 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
 #+END_SRC
 * Make Emacs look nicer
 
-** Use [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
+** Use Solarized Theme
 
 #+BEGIN_SRC emacs-lisp
 
-  (defun zxmth/load-material-theme (&optional default-material-theme)
-    (unless default-material-theme (setq default-material-theme material))
-    (load-theme default-material-theme)
-    (zxmth/customize-material-theme))
+  (defun zxmth/load-solarized-theme (&optional default-solarized-theme)
+    (unless default-solarized-theme (setq default-solarized-theme 'solarized-dark))
+    (load-theme default-solarized-theme)
+    (zxmth/customize-solarized-theme))
 
-  (defun zxmth/customize-material-theme ()
-    ;; remove the box style for org-levels
-    "Customize the material theme"
+  (defun zxmth/customize-solarized-theme ()
+    ;; remove the box style for org-levelsq
+    "Customize the solarized theme"
     (interactive)
     (dotimes (level 8)
       (set-face-attribute (intern-soft (format "org-level-%s" (+ 1 level)))
@@ -314,20 +314,23 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
     (interactive)
     (mapc #'disable-theme custom-enabled-themes))
 
-  (defun zxmth/toggle-material-themes ()
-    "Toggle between two material & material-light themes and make some customizations"
+  (defun zxmth/toggle-solarized-themes ()
+    "Toggle between two solarized & solarized-light themes and make some customizations"
     (interactive)
-    (setq themes-to-toggle '(material material-light))
+    (setq themes-to-toggle '(solarized-dark solarized-light))
     (setq theme-to-enable (car (remove (car custom-enabled-themes) themes-to-toggle)))
     (zxmth/disable-enabled-themes)
-    (zxmth/load-material-theme theme-to-enable))
+    (zxmth/load-solarized-theme theme-to-enable))
 
-  (use-package material-theme
+  (use-package solarized-theme
       :ensure t
       :config
-      (zxmth/customize-material-theme))
+      (zxmth/customize-solarized-theme))
 
-  (global-set-key (kbd "C-x /") 'zxmth/toggle-material-themes)
+  (global-set-key (kbd "C-x /") 'zxmth/toggle-solarized-themes)
+
+  (zxmth/load-solarized-theme)
+
 #+END_SRC
 * UI preferences
 
