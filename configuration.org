@@ -87,6 +87,7 @@ Use spaces instead of tabs and set the default tabstop to 2
 #+END_SRC
 
 Don't litter my init file with custom settings
+
 #+BEGIN_SRC emacs-lisp
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -291,6 +292,8 @@ Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[ht
 
   (defun zxmth/customize-material-theme ()
     ;; remove the box style for org-levels
+    "Customize the material theme"
+    (interactive)
     (dotimes (level 8)
       (set-face-attribute (intern-soft (format "org-level-%s" (+ 1 level)))
                           nil
@@ -570,6 +573,7 @@ Turn on spell checking for commits - I make tons of typos :-(
   (setq git-commit-summary-max-length 50)
   (add-hook 'git-commit-mode-hook 'turn-on-flyspell))
 #+END_SRC
+
 * Programming
 
 ** web-mode
@@ -676,9 +680,10 @@ Use Projectile to help manage files related to projects.
   (use-package projectile
     :ensure t
     :defer 1
+    :init
+    (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
-    (projectile-mode 1)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (projectile-mode)
     (setq projectile-enable-caching t)
     (setq projectile-mode-line
           '(:eval
