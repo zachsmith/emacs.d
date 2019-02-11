@@ -138,6 +138,18 @@ I'd resisted this for a while but see some benefit to using vim bindings
     (evil-mode 1))
 #+END_SRC
 
+** evil-surround
+
+   /vim-surround/ is amazing and I wanted something like it in emacs - this
+   works great
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode 1))
+#+END_SRC
+
 * Searching
 
 ** Auto-Complete
