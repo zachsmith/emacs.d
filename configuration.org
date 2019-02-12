@@ -619,12 +619,12 @@ Use web-mode for a host of basic web-y file formats
     :ensure t
     :defer t
     :config
-    (setq web-mode-attr-indent-offset 2)
-    (setq web-mode-code-indent-offset 2)
-    (setq web-mode-css-indent-offset 2)
-    (setq web-mode-indent-style 2)
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-sql-indent-offset 2)
+    (setq web-mode-attr-indent-offset 4)
+    (setq web-mode-code-indent-offset 4)
+    (setq web-mode-css-indent-offset 4)
+    (setq web-mode-indent-style 4)
+    (setq web-mode-markup-indent-offset 4)
+    (setq web-mode-sql-indent-offset 4)
     (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
     (add-hook 'web-mode-hook
               (lambda ()
@@ -657,9 +657,18 @@ Use web-mode for a host of basic web-y file formats
   (use-package js2-mode
     :ensure t
     :config
-    (setq js2-basic-offset 2)
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'interpreter-mode-alist '("node" . js2-mode)))
+    (progn
+      (add-to-list
+       'auto-mode-alist
+       (cons "\.js$" (defun choose-js-type-mode ()
+                       (save-excursion
+                         (goto-char (point-min))
+                         (let ((buff (current-buffer)))
+                           (if (search-forward "React" nil t 1)
+                               (rjsx-mode)
+                             (js2-mode))))))))
+      (setq js2-basic-offset 4)
+      (add-to-list 'interpreter-mode-alist '("node" . js2-mode)))
 #+END_SRC
 
 ** JSX
@@ -669,7 +678,7 @@ Use rjsx-mode for jsx files.
 #+BEGIN_SRC emacs-lisp
   (use-package rjsx-mode
      :config
-     (setq js2-basic-offset 2))
+     (setq js2-basic-offset 4))
 #+END_SRC
 
 ** Tide (TypeScript)
