@@ -120,10 +120,17 @@ Compile packages and prefer the newest version
 * Utility Functions
 
 #+BEGIN_SRC emacs-lisp
-(defun zxmth/add-auto-mode (mode &rest patterns)
-  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
-  (dolist (pattern patterns)
-    (add-to-list 'auto-mode-alist (cons pattern mode))))
+  (defun zxmth/add-auto-mode (mode &rest patterns)
+    "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
+    (dolist (pattern patterns)
+      (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+  (defun zxmth/disable-truncate-lines ()
+    "Disable line truncation"
+    (let ((inhibit-message t)
+          message-log-max
+          truncate-partial-width-windows)
+      (toggle-truncate-lines t)))
 #+END_SRC
 
 * Evil Mode
@@ -667,8 +674,9 @@ Use web-mode for a host of basic web-y file formats
                            (if (search-forward "React" nil t 1)
                                (rjsx-mode)
                              (js2-mode))))))))
-      (setq js2-basic-offset 4)
-      (add-to-list 'interpreter-mode-alist '("node" . js2-mode)))
+    (setq js2-basic-offset 4)
+    (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+    (add-hook 'js2-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
 
 ** JSX
@@ -676,33 +684,36 @@ Use web-mode for a host of basic web-y file formats
 Use rjsx-mode for jsx files.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package rjsx-mode
-     :config
-     (setq js2-basic-offset 4))
+    (use-package rjsx-mode
+       :config
+       (setq js2-basic-offset 4)
+       (add-hook 'rjsx-mode-hook #'zxmth/disable-truncate-lines))
+
 #+END_SRC
 
 ** Tide (TypeScript)
 
 #+BEGIN_SRC emacs-lisp
-  (defun setup-tide-mode ()
-    (interactive)
-    (message "This is being run")
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    (company-mode +1)
-    (setq tide-format-options '(:tabSize 2 :indentSize 2)))
+    (defun setup-tide-mode ()
+      (interactive)
+      (message "This is being run")
+      (tide-setup)
+      (flycheck-mode +1)
+      (setq flycheck-check-syntax-automatically '(save mode-enabled))
+      (eldoc-mode +1)
+      (tide-hl-identifier-mode +1)
+      (company-mode +1)
+      (setq tide-format-options '(:tabSize 2 :indentSize 2)))
 
-  (use-package tide
-    :config
-    (setq typescript-indent-level 2)
-    (setq company-tooltip-align-annotations t)
-    :after (typescript-mode company flycheck)
-    :hook ((typescript-mode . setup-tide-mode)
-           (typescript-mode . tide-hl-identifier-mode)
-           (before-save . tide-format-before-save)))
+    (use-package tide
+      :config
+      (setq typescript-indent-level 2)
+      (setq company-tooltip-align-annotations t)
+      :after (typescript-mode company flycheck)
+      :hook ((typescript-mode . setup-tide-mode)
+             (typescript-mode . tide-hl-identifier-mode)
+             (before-save . tide-format-before-save)
+             (typescript-mode . zxmth/disable-truncate-lines)))
 #+END_SRC
 
 ** PHP
@@ -711,7 +722,9 @@ Use rjsx-mode for jsx files.
   (use-package php-mode
     :mode "\\.php\\'"
     :ensure t
-    :defer 1)
+    :defer 1
+    :config
+    (add-hook 'php-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
 
 ** Projectile
@@ -768,30 +781,32 @@ Handy, dandy rest client
 Use Linux coding standards for C - copied from [[https://www.kernel.org/doc/html/v4.10/process/coding-style.html#you-ve-made-a-mess-of-it][here]].
 
 #+BEGIN_SRC emacs-lisp
-    (defun c-lineup-arglist-tabs-only ()
-      "Line up argument lists by tabs, not spaces"
-      (let* ((anchor (c-langelem-pos c-syntactic-element))
-             (column (c-langelem-2nd-pos c-syntactic-element))
-             (offset (- (1+ column) anchor))
-             (steps (floor offset c-basic-offset)))
-        (* (max steps 1)
-           c-basic-offset)))
+  (defun c-lineup-arglist-tabs-only ()
+    "Line up argument lists by tabs, not spaces"
+    (let* ((anchor (c-langelem-pos c-syntactic-element))
+           (column (c-langelem-2nd-pos c-syntactic-element))
+           (offset (- (1+ column) anchor))
+           (steps (floor offset c-basic-offset)))
+      (* (max steps 1)
+         c-basic-offset)))
 
-    (add-hook 'c-mode-common-hook
-              (lambda ()
-                ;; Add kernel style
-                (c-add-style
-                 "linux-tabs-only"
-                 '("linux" (c-offsets-alist
-                            (arglist-cont-nonempty
-                             c-lineup-gcc-asm-reg
-                             c-lineup-arglist-tabs-only))))))
-
-    (add-hook 'c-mode-hook
+  (add-hook 'c-mode-common-hook
             (lambda ()
-                    (setq indent-tabs-mode t)
-                    (setq show-trailing-whitespace t)
-                    (c-set-style "linux-tabs-only")))
+              ;; Add kernel style
+              (c-add-style
+               "linux-tabs-only"
+               '("linux" (c-offsets-alist
+                          (arglist-cont-nonempty
+                           c-lineup-gcc-asm-reg
+                           c-lineup-arglist-tabs-only))))))
+
+  (add-hook 'c-mode-hook
+          (lambda ()
+                  (setq indent-tabs-mode t)
+                  (setq show-trailing-whitespace t)
+                  (c-set-style "linux-tabs-only")))
+
+  (add-hook 'c-mode-hook #'zxmth/disable-truncate-lines)
 #+END_SRC
 
 ** Scala
@@ -799,7 +814,9 @@ Use Linux coding standards for C - copied from [[https://www.kernel.org/doc/html
 #+BEGIN_SRC emacs-lisp
   (use-package ensime
     :ensure t
-    :pin melpa-stable)
+    :pin melpa-stable
+    :config
+    (add-hook 'scala-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
 
 * Writing
