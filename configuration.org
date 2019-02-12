@@ -711,7 +711,16 @@ Use rjsx-mode for jsx files.
        :config
        (setq js2-basic-offset 4)
        (add-hook 'rjsx-mode-hook #'zxmth/disable-truncate-lines))
+#+END_SRC
 
+** JSON
+
+Use json-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package json-mode
+    :config
+    (add-hook 'json-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
 
 ** Tide (TypeScript)
