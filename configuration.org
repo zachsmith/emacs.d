@@ -893,7 +893,9 @@ Google This comes in handy
 
 #+BEGIN_SRC emacs-lisp
   (use-package google-this
-    :ensure t)
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c g") 'google-this-mode-submap))
 #+END_SRC
 
 
