@@ -99,6 +99,16 @@ If a file changes on disk, I want it to be reloaded/reverted in buffers
 (global-auto-revert-mode 1)
 #+END_SRC
 
+** Load Local Configurations
+
+Sometimes a machine needs some customized configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (setq local-cfg "~/.emacs.d/local.el")
+  (if (file-exists-p local-cfg)
+      (load-file local-cfg))
+#+END_SRC
+
 * Packages
 
 Compile packages and prefer the newest version
