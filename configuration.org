@@ -741,7 +741,6 @@ Use json-mode
 #+BEGIN_SRC emacs-lisp
     (defun setup-tide-mode ()
       (interactive)
-      (message "This is being run")
       (tide-setup)
       (flycheck-mode +1)
       (setq flycheck-check-syntax-automatically '(save mode-enabled))
