@@ -482,17 +482,20 @@ elisp template for org-mode
 Store org files in ~/Dropbox/Org
 
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Dropbox/Org")
-(defun org-file-path (filename)
-  "Return the absolute address of an org file, given its relative name."
-  (concat (file-name-as-directory org-directory) filename))
-(setq org-index-file (org-file-path "index.org"))
-(setq org-inbox-file (org-file-path "inbox.org"))
-(setq org-habit-file (org-file-path "habits.org"))
-(setq org-archive-location
-   (concat (org-file-path "archive.org") "::* From %s"))
+  (setq org-directory (if (boundp `custom-org-directory)
+                          custom-org-directory
+                        "~/Dropbox/Org"))
 
-(setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
+  (defun org-file-path (filename)
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
+  (setq org-index-file (org-file-path "index.org"))
+  (setq org-inbox-file (org-file-path "inbox.org"))
+  (setq org-habit-file (org-file-path "habits.org"))
+  (setq org-archive-location
+     (concat (org-file-path "archive.org") "::* From %s"))
+
+  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
 #+END_SRC
 
 Automatically save org files - mostly needed for keeping in sync over dropbox
@@ -907,6 +910,5 @@ Google This comes in handy
     :config
     (global-set-key (kbd "C-c g") 'google-this-mode-submap))
 #+END_SRC
-
 
 /That's it for now!/
