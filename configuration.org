@@ -483,27 +483,31 @@ Store org files in ~/Dropbox/Org
 
 #+BEGIN_SRC emacs-lisp
   (setq org-directory (if (boundp `custom-org-directory)
-                          custom-org-directory
-                        "~/Dropbox/Org"))
+                            custom-org-directory
+                          "~/Dropbox/Org"))
 
   (defun org-file-path (filename)
-    "Return the absolute address of an org file, given its relative name."
-    (concat (file-name-as-directory org-directory) filename))
+      "Return the absolute address of an org file, given its relative name."
+      (concat (file-name-as-directory org-directory) filename))
   (setq org-index-file (org-file-path "index.org"))
   (setq org-inbox-file (org-file-path "inbox.org"))
   (setq org-habit-file (org-file-path "habits.org"))
   (setq org-archive-location
-     (concat (org-file-path "archive.org") "::* From %s"))
+        (concat (org-file-path "archive.org") "::* From %s"))
+  (setq org-notes-directory (org-file-path "notes/"))
 
-  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
+  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file org-notes-directory))
 #+END_SRC
 
 Automatically save org files - mostly needed for keeping in sync over dropbox
 since I tend to open and edit my agenda on multiple computers and don't always
-remember to save...
+remember to save... Also, don't log the message to the minibuffer because that
+is annoying...
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+  (add-hook 'auto-save-hook (lambda ()
+                              (let ((inhibit-message t))
+                                (org-save-all-org-buffers))))
 #+END_SRC
 
 Capture tasks in /inbox.org/ but copy them into the /index.org/ file and clean
