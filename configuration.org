@@ -914,4 +914,13 @@ Google This comes in handy
     (global-set-key (kbd "C-c g") 'google-this-mode-submap))
 #+END_SRC
 
+** Time
+
+Show the time in 24 hour format
+
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (display-time-mode)
+#+END_SRC
+
 /That's it for now!/
