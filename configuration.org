@@ -483,20 +483,19 @@ Store org files in ~/Dropbox/Org
 
 #+BEGIN_SRC emacs-lisp
   (setq org-directory (if (boundp `custom-org-directory)
-                            custom-org-directory
-                          "~/Dropbox/Org"))
+                          custom-org-directory
+                        "~/Dropbox/Org"))
 
   (defun org-file-path (filename)
-      "Return the absolute address of an org file, given its relative name."
-      (concat (file-name-as-directory org-directory) filename))
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
   (setq org-index-file (org-file-path "index.org"))
   (setq org-inbox-file (org-file-path "inbox.org"))
   (setq org-habit-file (org-file-path "habits.org"))
   (setq org-archive-location
-        (concat (org-file-path "archive.org") "::* From %s"))
-  (setq org-notes-directory (org-file-path "notes/"))
+     (concat (org-file-path "archive.org") "::* From %s"))
 
-  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file org-notes-directory))
+  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
 #+END_SRC
 
 Automatically save org files - mostly needed for keeping in sync over dropbox
