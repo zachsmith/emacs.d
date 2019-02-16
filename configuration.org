@@ -905,7 +905,9 @@ so give me a way to turn it off, too.
 
 * Helpers
 
-Google This comes in handy
+** Google This
+
+Searching from within emacs comes in handy
 
 #+BEGIN_SRC emacs-lisp
   (use-package google-this
