@@ -527,6 +527,9 @@ elisp template for org-mode
     "List of files to include in constructing org agenda")
 
   (setq org-agenda-files zxmth-org-agenda-files)
+
+  (defcustom org-brain-file (concat (file-name-as-directory org-notes-directory) "brain.org")
+    "File to collect lots of notes")
 #+END_SRC
 
 ** Auto-Save
@@ -577,6 +580,13 @@ Quickly open my index file
     (find-file org-index-file)
     (end-of-buffer))
   (global-set-key (kbd "C-c i") 'zxmth/open-index-file)
+
+  (defun zxmth/open-brain-file ()
+    "Open the main note taking document"
+    (interactive)
+    (find-file org-brain-file)
+    (end-of-buffer))
+  (global-set-key (kbd "C-c b") 'zxmth/open-brain-file)
 #+END_SRC
 
 ** Capture template(s)
