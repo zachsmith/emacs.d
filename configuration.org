@@ -843,6 +843,7 @@ Use Projectile to help manage files related to projects.
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
     (projectile-mode)
+    (setq projectile-completion-system 'ivy)
     (setq projectile-enable-caching t)
     (setq projectile-mode-line
           '(:eval
