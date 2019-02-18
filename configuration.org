@@ -520,10 +520,13 @@ elisp template for org-mode
 
   (defcustom org-index-file (org-agenda-file-path "index.org")
     "Primary Org index file")
+
   (defcustom org-inbox-file (org-agenda-file-path "inbox.org")
     "Org file where new notes are captured - TODOs in this file can be moved to the org-index-file")
+
   (defcustom org-habit-file (org-agenda-file-path "habits.org")
     "Org file where repeating or habit based tasks are stored")
+
   (defcustom org-archive-location (concat (org-agenda-file-path "archive.org") "::* From %s")
     "File where completed Org tasks will be archived")
 
