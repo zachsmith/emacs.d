@@ -685,7 +685,8 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
                      ((org-agenda-skip-function '(or (zxmth/org-skip-subtree-if-habit)
                                                      (zxmth/org-skip-subtree-if-priority ?A)
                                                      (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED"))
-                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                                                     (org-agenda-skip-if nil '(scheduled deadline))
+                                                     (org-agenda-skip-subtree-if 'regexp ":ignore:")))
                       (org-agenda-overriding-header "Backlog:")))))))
 
   (defun zxmth/pop-to-custom-daily-org-agenda ()
