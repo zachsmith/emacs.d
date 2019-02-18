@@ -111,7 +111,7 @@ Sometimes a machine needs some customized configuration.
 
 * Packages
 
-Compile packages and prefer the newest version
+** Compile packages and prefer the newest version
 
 #+BEGIN_SRC emacs-lisp
 (use-package auto-compile
@@ -120,7 +120,7 @@ Compile packages and prefer the newest version
 (setq load-prefer-newer t)
 #+END_SRC
 
-Use dash.el for some handy functions
+** Use dash.el for some handy functions
 
 #+BEGIN_SRC emacs-lisp
   (use-package dash
@@ -128,6 +128,8 @@ Use dash.el for some handy functions
 #+END_SRC
 
 * Set personal information
+
+** Contact Information
 
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Zachary Smith"
@@ -247,6 +249,8 @@ I have gotten pretty used to using Ag and find it handy with projectile.
 
 * Switch and rebalance windows when splitting
 
+** Window Movement
+
 I like having keys to more easily jump around open buffers
 
 #+BEGIN_SRC emacs-lisp
@@ -255,6 +259,8 @@ I like having keys to more easily jump around open buffers
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c l") 'windmove-right)
 #+END_SRC
+
+** Window Resizing
 
 I often resize buffers - bind keys to resizing that are similar to navigation
 Use /C-u #/ to make larger resize increments.
@@ -338,7 +344,7 @@ switch-window is great for jumping around frames
 
 * Multiple Cursors
 
-Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[https://github.com/magnars][Magnar Sveen]]
+** Use [[https://github.com/magnars/multiple-cursors.el][Multiple Cursors]] by [[https://github.com/magnars][Magnar Sveen]]
 
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
@@ -444,7 +450,7 @@ Make the frame title match the current project as defined by Projectile
 
 * Org Mode Settings
 
-Some basic [[https://orgmode.org][Org-mode]] configurations
+** Some basic [[https://orgmode.org][Org-mode]] configurations
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\C-ca" 'org-agenda)
@@ -459,7 +465,7 @@ Some basic [[https://orgmode.org][Org-mode]] configurations
       ("CANCELED" (:foreground "white" :background "gray"))))
 #+END_SRC
 
-Use pretty bullets for
+** Use pretty bullets
 
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
@@ -467,17 +473,23 @@ Use pretty bullets for
   (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
+** Syntax highlighting
+
 Use syntax highlighting in source blocks while editing
 
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 #+END_SRC
 
+** TAB behavior
+
 Make TAB act as if it were issued in the language's major mode
 
 #+BEGIN_SRC emacs-lisp
 (setq org-src-tab-acts-natively t)
 #+END_SRC
+
+** Templates
 
 elisp template for org-mode
 
@@ -486,7 +498,7 @@ elisp template for org-mode
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 #+END_SRC
 
-Configure org agenda, notes, and archive files
+** Configure org agenda, notes, and archive files
 
 #+BEGIN_SRC emacs-lisp
   (defcustom org-agenda-dir-path org-directory
@@ -517,6 +529,8 @@ Configure org agenda, notes, and archive files
   (setq org-agenda-files zxmth-org-agenda-files)
 #+END_SRC
 
+** Auto-Save
+
 Automatically save org files - mostly needed for keeping in sync over dropbox
 since I tend to open and edit my agenda on multiple computers and don't always
 remember to save... Also, don't log the message to the minibuffer because that
@@ -527,6 +541,8 @@ is annoying...
                               (let ((inhibit-message t))
                                 (org-save-all-org-buffers))))
 #+END_SRC
+
+** Capturing and storing tasks
 
 Capture tasks in /inbox.org/ but copy them into the /index.org/ file and clean
 up the /inbox/
@@ -548,6 +564,8 @@ up the /inbox/
   (define-key org-mode-map (kbd "C-c C-x TAB") 'zxmth/move-tasks-from-inbox)
 #+END_SRC
 
+** Quick file access
+
 Quickly open my index file
 
 #+BEGIN_SRC emacs-lisp
@@ -561,7 +579,7 @@ Quickly open my index file
   (global-set-key (kbd "C-c i") 'zxmth/open-index-file)
 #+END_SRC
 
-Define a few capture templates
+** Capture template(s)
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -582,7 +600,7 @@ Quick capture TODO
   (global-set-key (kbd "C-c M-n") 'zxmth/org-capture-todo)
 #+END_SRC
 
-Archive DONE and CANCELED tasks
+** Archive DONE and CANCELED tasks
 
 #+BEGIN_SRC emacs-lisp
   (defun zxmth/org-archive-complete-tasks (&optional archive-states)
@@ -595,11 +613,15 @@ Archive DONE and CANCELED tasks
   (define-key org-mode-map (kbd "\C-c A") 'zxmth/org-archive-complete-tasks)
 #+END_SRC
 
-Enable spell-checking...I'm rael bad at spelling.
+** Enable spell-checking
+
+I'm rael bad at spelling.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook 'flyspell-mode)
 #+END_SRC
+
+** Agenda View
 
 Build a custom agenda view that shows me TODOs marked as priority #A on top
 followed by my tasks scheduled for the current day, tasks marked as started,
@@ -659,6 +681,8 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 #+END_SRC
 
 * Git
+
+** Magit
 
 Magit is amazing...and I barely know how to use it... This [[https://github.com/magit/magit/wiki/Cheatsheet][Cheat Sheet]] is helpful.
 
