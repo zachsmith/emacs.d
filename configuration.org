@@ -479,23 +479,27 @@ elisp template for org-mode
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 #+END_SRC
 
-Store org files in ~/Dropbox/Org
+Configure org agenda, notes, and archive files
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory (if (boundp `custom-org-directory)
-                          custom-org-directory
-                        "~/Dropbox/Org"))
+  (defcustom org-agenda-dir-path org-directory
+    "Path to my centrailized org files that comprise my agenda")
 
-  (defun org-file-path (filename)
+  (defcustom org-notes-directory (concat (file-name-as-directory org-directory) "notes")
+    "Root of where org note files are saved")
+
+  (defun org-agenda-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
-    (concat (file-name-as-directory org-directory) filename))
-  (setq org-index-file (org-file-path "index.org"))
-  (setq org-inbox-file (org-file-path "inbox.org"))
-  (setq org-habit-file (org-file-path "habits.org"))
-  (setq org-archive-location
-     (concat (org-file-path "archive.org") "::* From %s"))
+    (concat (file-name-as-directory org-agenda-dir-path) filename))
 
-  (setq org-agenda-files (list org-index-file org-inbox-file org-habit-file))
+  (setq org-index-file (org-agenda-file-path "index.org"))
+  (setq org-inbox-file (org-agenda-file-path "inbox.org"))
+  (setq org-habit-file (org-agenda-file-path "habits.org"))
+  (setq org-archive-location
+        (concat (org-agenda-file-path "archive.org") "::* From %s"))
+
+  (setq org-agenda-files
+        (list org-index-file org-inbox-file org-habit-file org-notes-directory))
 #+END_SRC
 
 Automatically save org files - mostly needed for keeping in sync over dropbox
