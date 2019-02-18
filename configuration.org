@@ -19,6 +19,8 @@ Setup some default package archives & initialize.
 (package-initialize)
 #+END_SRC
 
+** Diminish
+
 I make use of [[https://github.com/emacsmirror/diminish][diminish]] so make sure it is installed.
 
 #+BEGIN_SRC emacs-lisp
@@ -26,6 +28,8 @@ I make use of [[https://github.com/emacsmirror/diminish][diminish]] so make sure
   (package-refresh-contents)
   (package-install 'diminish))
 #+END_SRC
+
+** use-package
 
 Use [[https://github.com/jwiegley/use-package][use-package]] for managing packages in emacs.
 
