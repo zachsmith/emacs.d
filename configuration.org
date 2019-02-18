@@ -131,6 +131,17 @@ Sometimes a machine needs some customized configuration.
     :ensure t)
 #+END_SRC
 
+** exec-path-from-shell
+
+Use shell PATH when launched from graphical environments
+
+#+BEGIN_SRC emacs-lisp
+(use-package exec-path-from-shell)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+#+END_SRC
+
 * Set personal information
 
 ** Contact Information
