@@ -495,18 +495,26 @@ Configure org agenda, notes, and archive files
   (defcustom org-notes-directory (concat (file-name-as-directory org-directory) "notes")
     "Root of where org note files are saved")
 
+  (defcustom org-remote-notes-directory nil
+    "TRAMP path to a remote directory to search for notes")
+
   (defun org-agenda-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
     (concat (file-name-as-directory org-agenda-dir-path) filename))
 
-  (setq org-index-file (org-agenda-file-path "index.org"))
-  (setq org-inbox-file (org-agenda-file-path "inbox.org"))
-  (setq org-habit-file (org-agenda-file-path "habits.org"))
-  (setq org-archive-location
-        (concat (org-agenda-file-path "archive.org") "::* From %s"))
+  (defcustom org-index-file (org-agenda-file-path "index.org")
+    "Primary Org index file")
+  (defcustom org-inbox-file (org-agenda-file-path "inbox.org")
+    "Org file where new notes are captured - TODOs in this file can be moved to the org-index-file")
+  (defcustom org-habit-file (org-agenda-file-path "habits.org")
+    "Org file where repeating or habit based tasks are stored")
+  (defcustom org-archive-location (concat (org-agenda-file-path "archive.org") "::* From %s")
+    "File where completed Org tasks will be archived")
 
-  (setq org-agenda-files
-        (list org-index-file org-inbox-file org-habit-file org-notes-directory))
+  (defcustom zxmth-org-agenda-files (-non-nil (list org-index-file org-inbox-file org-habit-file org-notes-directory org-remote-notes-directory))
+    "List of files to include in constructing org agenda")
+
+  (setq org-agenda-files zxmth-org-agenda-files)
 #+END_SRC
 
 Automatically save org files - mostly needed for keeping in sync over dropbox
