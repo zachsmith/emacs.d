@@ -717,6 +717,20 @@ Turn on spell checking for commits - I make tons of typos :-(
 
 * Programming
 
+** prettier
+
+   Use [[https://github.com/prettier/prettier][prettier]] to format code
+
+#+BEGIN_SRC emacs-lisp
+    (use-package prettier-js
+      :ensure t
+  :config
+  (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'json-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-mode 'prettier-js-mode))
+#+END_SRC
+
 ** web-mode
 
 Use web-mode for a host of basic web-y file formats
