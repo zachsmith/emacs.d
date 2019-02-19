@@ -999,7 +999,7 @@ Searching from within emacs comes in handy
   (use-package google-this
     :ensure t
     :config
-    (global-set-key (kbd "C-c g") 'google-this-mode-submap))
+    (global-set-key (kbd "C-c /") 'google-this-mode-submap))
 #+END_SRC
 
 ** Time
