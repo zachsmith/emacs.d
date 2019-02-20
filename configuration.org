@@ -746,7 +746,7 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
     (let ((org-agenda-window-setup 'only-window))
       (org-agenda nil "d")))
 
-  (global-set-key (kbd "C-x !") 'zxmth/pop-to-custom-daily-org-agenda)
+  (global-set-key (kbd "C-c M-A") 'zxmth/pop-to-custom-daily-org-agenda)
 
   (defun zxmth/show-daily-org-agenda ()
     "Show the 'Daily Agenda' in the current window"
@@ -754,7 +754,7 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
     (let ((org-agenda-window-setup 'other-window))
       (org-agenda nil "d")))
 
-  (global-set-key (kbd "C-x M-a") 'zxmth/show-daily-org-agenda)
+  (global-set-key (kbd "C-c M-a") 'zxmth/show-daily-org-agenda)
 #+END_SRC
 
 * Git
