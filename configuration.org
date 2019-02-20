@@ -491,7 +491,7 @@ Make the frame title match the current project as defined by Projectile
     '(("STARTED" . "#b58900")
       ("WAITING" . "#d33682")
       ("BLOCKED" . (:foreground "white" :background "#d33682" :weight bold))
-      ("CANCELED" . "#83949")
+      ("CANCELED" . "#839496")
       ("QUESTION" . "#cb4b16")
       ("LEARNING" . "#6c71c4")
       ("ANSWERED" . "#859900")
