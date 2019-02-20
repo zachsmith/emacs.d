@@ -472,12 +472,18 @@ Make the frame title match the current project as defined by Projectile
   (global-set-key "\C-cb" 'org-iswitchb)
   (setq org-log-done 'time)
   (setq org-todo-keywords
-    '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+    '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "BLOCKED(b!)" "|" "DONE(d!)" "CANCELED(c@)")
+      (sequence "QUESTION(q)" "LEARNING(l)" "|" "ANSWERED(a@)" "FORGET(f)")))
 
   (setq org-todo-keyword-faces
-    '(("STARTED" . org-warning)
-      ("WAITING" . (:foreground "lightblue" :background "blue" :weight bold))
-      ("CANCELED" (:foreground "white" :background "gray"))))
+    '(("STARTED" . "#b58900")
+      ("WAITING" . "#d33682")
+      ("BLOCKED" . (:foreground "white" :background "#d33682" :weight bold))
+      ("CANCELED" . "#83949")
+      ("QUESTION" . "#cb4b16")
+      ("LEARNING" . "#6c71c4")
+      ("ANSWERED" . "#859900")
+      ("FORGET" . "#839496")))
 #+END_SRC
 
 ** Use pretty bullets
@@ -687,15 +693,19 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-Priority Tasks:")))
+            (tags "TODO=\"BLOCKED\""
+                  ((org-agenda-overriding-header "Blocked:")))
             (agenda "" ((org-agenda-span 1)))
-            (tags "TODO=\"STARTED\""
-                  ((org-agenda-overriding-header "Started:")))
             (tags "TODO=\"WAITING\""
                   ((org-agenda-overriding-header "Waiting:")))
+            (tags "TODO=\"STARTED\""
+                  ((org-agenda-overriding-header "Started:")))
+            (tags "TODO=\"QUESTION\"|TODO=\"LEARNING\""
+                  ((org-agenda-overriding-header "Questions:")))
             (alltodo ""
                      ((org-agenda-skip-function '(or (zxmth/org-skip-subtree-if-habit)
                                                      (zxmth/org-skip-subtree-if-priority ?A)
-                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED"))
+                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED" "BLOCKED" "QUESTION" "LEARNING"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))
                                                      (org-agenda-skip-subtree-if 'regexp ":ignore:")))
                       (org-agenda-overriding-header "Backlog:")))))))
