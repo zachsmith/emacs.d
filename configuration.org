@@ -370,6 +370,18 @@ switch-window is great for jumping around frames
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 #+END_SRC
 
+* Registers & Bookmarks
+
+** list-register
+
+For some reason there doesn't appear to be a built-in way to list your registers
+so we have to install a packaged to do it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package list-register
+    :ensure t)
+#+END_SRC
+
 * Make Emacs look nicer
 
 ** Use Solarized Theme
