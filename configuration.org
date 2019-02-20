@@ -741,11 +741,20 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 
   (defun zxmth/pop-to-custom-daily-org-agenda ()
     "Visit the 'Daily Agenda' org agenda in the current window
-     and close other windows"
+         and close other windows"
     (interactive)
-    (org-agenda nil "d");; open "Daily Agenda" custom command
-    (delete-other-windows))
+    (let ((org-agenda-window-setup 'only-window))
+      (org-agenda nil "d")))
+
   (global-set-key (kbd "C-x !") 'zxmth/pop-to-custom-daily-org-agenda)
+
+  (defun zxmth/show-daily-org-agenda ()
+    "Show the 'Daily Agenda' in the current window"
+    (interactive)
+    (let ((org-agenda-window-setup 'other-window))
+      (org-agenda nil "d")))
+
+  (global-set-key (kbd "C-x M-a") 'zxmth/show-daily-org-agenda)
 #+END_SRC
 
 * Git
