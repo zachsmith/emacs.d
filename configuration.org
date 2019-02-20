@@ -634,7 +634,11 @@ Quickly open my index file
         '(("t" "TODO"
            entry
            (file+headline org-index-file "Tasks")
-           "** TODO %?\n")))
+           "** TODO %?\n")
+          ("q" "QUESTION"
+           entry
+           (file+headline org-index-file "Questions")
+           "** QUESTION %?\n")))
 #+END_SRC
 
 Quick capture TODO
@@ -645,6 +649,12 @@ Quick capture TODO
     (interactive)
     (org-capture :keys "t"))
   (global-set-key (kbd "C-c M-n") 'zxmth/org-capture-todo)
+
+  (defun zxmth/org-capture-question ()
+    "Prompt to quickly capture a QUESTION using the QUESTION template"
+    (interactive)
+    (org-capture :keys "q"))
+  (global-set-key (kbd "C-c M-q") 'zxmth/org-capture-question)
 #+END_SRC
 
 ** Archive DONE and CANCELED tasks
