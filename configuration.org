@@ -557,16 +557,16 @@ todo templates
   (defcustom org-habit-file (org-agenda-file-path "habits.org")
     "Org file where repeating or habit based tasks are stored")
 
+  (defcustom org-brain-file (org-agenda-file-path "brain.org")
+    "File to collect lots of notes")
+
   (defcustom org-archive-location (concat (org-agenda-file-path "archive.org") "::* From %s")
     "File where completed Org tasks will be archived")
 
-  (defcustom zxmth-org-agenda-files (-non-nil (list org-index-file org-inbox-file org-habit-file org-notes-directory org-remote-notes-directory))
+  (defcustom zxmth-org-agenda-files (-non-nil (list org-index-file org-inbox-file org-habit-file org-brain-file org-notes-directory org-remote-notes-directory))
     "List of files to include in constructing org agenda")
 
   (setq org-agenda-files zxmth-org-agenda-files)
-
-  (defcustom org-brain-file (concat (file-name-as-directory org-notes-directory) "brain.org")
-    "File to collect lots of notes")
 #+END_SRC
 
 ** Auto-Save
