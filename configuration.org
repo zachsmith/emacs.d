@@ -686,14 +686,14 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 
 #+BEGIN_SRC emacs-lisp
   (defun zxmth/org-skip-subtree-if-priority (priority)
-      "Skip an agenda subtree if it has a priority of PRIORITY.
-       PRIORITY may be one of the characters ?A, ?B, or ?C."
-      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-            (pri-value (* 1000 (- org-lowest-priority priority)))
-            (pri-current (org-get-priority (thing-at-point 'line t))))
-        (if (= pri-value pri-current)
-            subtree-end
-               nil)))
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+           PRIORITY may be one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
 
   (defun zxmth/org-skip-subtree-if-habit ()
     "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
@@ -710,6 +710,12 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
         (setq task-state (org-entry-get nil "TODO"))
         (if (string= task-state state)
             (setq skip subtree-end)))))
+
+  (defun zxmth/org-agenda-get-day-face (date)
+    "Return the face DATE should be displayed with."
+    '(:foreground "#eee8d5" :weight "bold"))
+
+  (setq org-agenda-day-face-function 'zxmth/org-agenda-get-day-face)
 
   (setq org-agenda-custom-commands
         '(("d" "Daily Agenda"
