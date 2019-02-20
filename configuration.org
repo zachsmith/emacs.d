@@ -733,13 +733,24 @@ Turn on spell checking for commits - I make tons of typos :-(
    Use [[https://github.com/prettier/prettier][prettier]] to format code
 
 #+BEGIN_SRC emacs-lisp
-    (use-package prettier-js
-      :ensure t
-  :config
-  (add-hook 'rjsx-mode-hook 'prettier-js-mode)
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'json-mode-hook 'prettier-js-mode)
-  (add-hook 'typescript-mode 'prettier-js-mode))
+  (use-package prettier-js
+      :ensure t)
+  ;;  :config
+  ;;  (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+  ;;  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  ;;  (add-hook 'typescript-mode 'prettier-js-mode)
+#+END_SRC
+
+** eslintd_fix
+
+[[https://github.com/aaronjensen/eslintd-fix][Aaron Jensen's]] awesome eslintd fix package
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eslintd-fix
+    :config
+    (add-hook 'rjsx-mode-hook 'eslintd-fix-mode)
+    (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+    (add-hook 'typescript-mode 'eslintd-fix-mode))
 #+END_SRC
 
 ** web-mode
