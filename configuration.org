@@ -410,7 +410,10 @@ so we have to install a packaged to do it.
       (set-face-attribute attr
                           nil
                           :box 'unspecified
-                          :background "#1c1f26"))))
+                          :background "#1c1f26")))
+
+    ;; unset the checkbox styling - the default looks stupid
+    (set-face-attribute 'org-checkbox nil :box 'unspecified :background 'unspecified))
 
   (defun zxmth/disable-enabled-themes ()
     "Disable all themes currently enabled"
