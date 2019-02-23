@@ -740,7 +740,7 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 
   (defun zxmth/org-agenda-get-day-face (date)
     "Return the face DATE should be displayed with."
-    '(:foreground "#eee8d5" :weight "bold"))
+    '(:foreground "#eee8d5" :weight bold))
 
   (setq org-agenda-day-face-function 'zxmth/org-agenda-get-day-face)
 
