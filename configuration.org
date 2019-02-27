@@ -554,7 +554,7 @@ I tend to organize my /brain/ file with date headers. Can't add a function call 
   (defun zxmth/add-org-date-header (&optional date-format)
     "Template to insert the date"
     (interactive)
-    (unless date-format (setq date-format "%A, %B %Y"))
+    (unless date-format (setq date-format "%A, %B %d, %Y"))
     (insert (concat "* " (format-time-string date-format) "\n\n")))
   (define-key org-mode-map (kbd "C-:") 'zxmth/add-org-date-header)
 #+END_SRC
