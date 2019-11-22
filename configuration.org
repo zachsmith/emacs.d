@@ -133,6 +133,20 @@ the path out every time.
                                     (interactive)
                                     (zxmth/open-config-file t)))
 #+END_SRC
+
+** Reload configuration
+
+Helper function and global key to reload init.el
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/reload-init-el ()
+    "Reload the init.el"
+    (interactive)
+    (load-file "~/.emacs.d/init.el"))
+
+  (global-set-key (kbd "C-x !") 'zxmth/reload-init-el)
+#+END_SRC
+
 * Packages
 
 ** Compile packages and prefer the newest version
