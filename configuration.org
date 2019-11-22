@@ -113,6 +113,26 @@ Sometimes a machine needs some customized configuration.
       (load-file local-cfg))
 #+END_SRC
 
+** Open configuration.org file
+
+Opens the configuration.org file - handy so I don't have to open it by typing
+the path out every time.
+
+#+BEGIN_SRC emacs-lisp
+    (defun zxmth/open-config-file (&optional new-window)
+      "Open the emacs config"
+      (interactive)
+      (setq config-file "~/.emacs.d/configuration.org")
+      (unless new-window (setq new-window nil))
+      (if new-window
+        (find-file-other-window config-file)
+        (find-file config-file))
+      (beginning-of-buffer))
+    (global-set-key (kbd "C-x c") 'zxmth/open-config-file)
+    (global-set-key (kbd "C-x C") (lambda ()
+                                    (interactive)
+                                    (zxmth/open-config-file t)))
+#+END_SRC
 * Packages
 
 ** Compile packages and prefer the newest version
