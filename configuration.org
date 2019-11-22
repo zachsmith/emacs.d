@@ -384,35 +384,13 @@ so we have to install a packaged to do it.
 
 * Make Emacs look nicer
 
-** Use Solarized Theme
+** Use monokai & spacemacs-light themes
 
 #+BEGIN_SRC emacs-lisp
 
     (defun zxmth/load-theme (&optional default-theme)
       (unless default-theme (setq default-theme 'monokai))
       (load-theme default-theme))
-
-    ;; (defun zxmth/customize-solarized-theme ()
-    ;;   ;; remove the box style for org-levelsq
-    ;;   "Customize the solarized theme"
-    ;;   (interactive)
-    ;;   (dotimes (level 8)
-    ;;     (set-face-attribute (intern-soft (format "org-level-%s" (+ 1 level)))
-    ;;                         nil
-    ;;                         :height 'unspecified
-    ;;                         :background 'unspecified
-    ;;                         :box 'unspecified))
-
-    ;;   ;; make the block begin & end the same as the block body
-    ;;   (let ((attributes '(org-block-end-line org-block-begin-line)))
-    ;;     (dolist (attr attributes)
-    ;;     (set-face-attribute attr
-    ;;                         nil
-    ;;                         :box 'unspecified
-    ;;                         :background "#1c1f26")))
-
-    ;;   ;; unset the checkbox styling - the default looks stupid
-    ;;   (set-face-attribute 'org-checkbox nil :box 'unspecified :background 'unspecified))
 
     (defun zxmth/disable-enabled-themes ()
       "Disable all themes currently enabled"
@@ -427,20 +405,12 @@ so we have to install a packaged to do it.
       (zxmth/disable-enabled-themes)
       (zxmth/load-theme theme-to-enable))
 
-    ;; (use-package solarized-theme
-    ;;     :ensure t
-    ;;     :config
-    ;;     (zxmth/customize-solarized-theme))
-
     (use-package monokai-theme
       :ensure t)
-    (use-package spacemacs-theme
-      :ensure t)
-    (global-set-key (kbd "C-x /") 'zxmth/toggle-themes)
+    (use-package spacemacs-common
+      :ensure spacemacs-theme)
 
-    ;;  (zxmth/load-solarized-theme)
-    ;;(load-theme 'spacemacs-dark)
-    ;;(load-theme 'spacemacs-light)
+    (global-set-key (kbd "C-x /") 'zxmth/toggle-themes)
 
   (zxmth/load-theme 'monokai)
 #+END_SRC
