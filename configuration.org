@@ -248,7 +248,7 @@ is a game changer.
   :bind (:map dired-mode-map
               ("<tab>" . dired-subtree-toggle)
               ("<C-tab>" . dired-subtree-cycle)
-              ("<S-tab>" . dired-subtree-remove)))
+              ("<S-iso-lefttab>" . dired-subtree-remove)))
 #+END_SRC
 
 Preview files in a directory.
