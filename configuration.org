@@ -6,19 +6,6 @@
 Lots of ideas stolen (with admiration) from [[https://github.com/hrs][Harry R. Schwartz]].
 
 * Core Package Management Setup
-
-Setup some default package archives & initialize.
-
-#+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(package-initialize)
-#+END_SRC
-
 ** Diminish
 
 I make use of [[https://github.com/emacsmirror/diminish][diminish]] so make sure it is installed.
@@ -199,6 +186,95 @@ Use shell PATH when launched from graphical environments
           message-log-max
           truncate-partial-width-windows)
       (toggle-truncate-lines t)))
+#+END_SRC
+
+* Directory Editing
+
+I borrowed pretty much all of this from [[https://gitlab.com/protesilaos/dotemacs/blob/master/emacs-init.org][Protesilaos Stavrou]] who has some
+fantastic configurations. I was looking for information on dired and found [[https://www.youtube.com/watch?v=_2NAbPp_0zY][this
+video]] he did which was great.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dired
+  :ensure nil
+  :custom
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (dired-isearch-filenames 'dwim)
+  (delete-by-moving-to-trash t)
+  (dired-listing-switches "-AFhlv --group-directories-first")
+  (dired-dwim-target t)
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (dired-mode . hl-line-mode)
+  :bind (("s-d" . dired)
+         ("s-D" . dired-other-window)))
+
+(use-package find-dired
+  :after dired
+  :custom
+  (find-ls-option ;; applies to `find-name-dired'
+   '("-ls" . "-AFhlv --group-directories-first"))
+  (find-name-arg "-iname"))
+
+(use-package async
+  :ensure t)
+
+(use-package dired-async
+  :ensure nil
+  :after (dired async)
+  :config
+  (dired-async-mode 1))
+#+END_SRC
+
+wdired is great for editing text to affect file names. You can rename things or
+even create directories.
+
+#+BEGIN_SRC emacs-lisp
+(use-package wdired
+  :after dired
+  :init
+  (setq wdired-allow-to-change-permissions t)
+  (setq wdired-create-parent-directories t))
+#+END_SRC
+
+Honestly, I'm not sure why this isn't the default dired behavior but this tool
+is a game changer.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dired-subtree
+  :ensure t
+  :after dired
+  :bind (:map dired-mode-map
+              ("<tab>" . dired-subtree-toggle)
+              ("<C-tab>" . dired-subtree-cycle)
+              ("<S-iso-lefttab>" . dired-subtree-remove)))
+#+END_SRC
+
+Preview files in a directory.
+
+#+BEGIN_SRC emacs-lisp
+(use-package peep-dired
+  :ensure t
+  :after dired
+  :bind (:map dired-mode-map
+              ("P" . peep-dired))
+  :custom
+  (peep-dired-cleanup-on-disable t)
+  (peep-dired-ignored-extensions
+   '("mkv" "webm" "mp4" "mp3" "ogg" "iso")))
+#+END_SRC
+
+Show git info for files in a dired buffer if they exist in a git repository.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dired-git-info
+  :ensure t
+  :after dired
+  :custom
+  (dgi-commit-message-format "%h\t%s\t%cr")
+  :bind (:map dired-mode-map
+              (")" . dired-git-info-mode)))
 #+END_SRC
 
 * Evil Mode
@@ -1048,7 +1124,7 @@ Use Linux coding standards for C - copied from [[https://www.kernel.org/doc/html
 
 #+BEGIN_SRC emacs-lisp
   (use-package ensime
-    :ensure t
+    :ensure nil
     :pin melpa-stable
     :config
     (add-hook 'scala-mode-hook #'zxmth/disable-truncate-lines))
