@@ -202,7 +202,7 @@ video]] he did which was great.
   (dired-recursive-deletes 'always)
   (dired-isearch-filenames 'dwim)
   (delete-by-moving-to-trash t)
-  (dired-listing-switches "-AFhlv")
+  (dired-listing-switches "-AFhlv --group-directories-first")
   (dired-dwim-target t)
   :hook
   (dired-mode . dired-hide-details-mode)
@@ -214,7 +214,7 @@ video]] he did which was great.
   :after dired
   :custom
   (find-ls-option ;; applies to `find-name-dired'
-   '("-ls" . "-AFhlv"))
+   '("-ls" . "-AFhlv --group-directories-first"))
   (find-name-arg "-iname"))
 
 (use-package async
