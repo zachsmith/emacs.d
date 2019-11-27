@@ -301,6 +301,17 @@ Install icons for use in dired and ivy
     (all-the-icons-ivy-setup))
 #+END_SRC
 
+Dired-narrow adds some helpful filtering to dired buffers
+
+#+BEGIN_SRC emacs-lisp
+(use-package dired-narrow
+  :ensure t
+  :config
+    (bind-key "C-c C-n" #'dired-narrow)
+    (bind-key "C-c C-f" #'dired-narrow-fuzzy)
+    (bind-key "C-c C-N" #'dired-narrow-regexp))
+#+END_SRC
+
 * Evil Mode
 
 I'd resisted this for a while but see some benefit to using vim bindings
