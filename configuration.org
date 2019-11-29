@@ -365,8 +365,10 @@ depend on it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :config
-    (add-hook 'after-init-hook 'global-company-mode))
+     :config
+     (add-hook 'after-init-hook 'global-company-mode))
+
+  (global-set-key (kbd "C-|") 'company-complete-common)
 #+END_SRC
 
 ** Ivy / Counsel / Swiper
