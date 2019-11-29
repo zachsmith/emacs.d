@@ -574,7 +574,9 @@ post-theme-load hook.
      '(dired-subtree-depth-3-face ((t (:background "white"))))
      '(dired-subtree-depth-4-face ((t (:background "ivory2"))))
      '(dired-subtree-depth-5-face ((t (:background "ivory1"))))
-     '(dired-subtree-depth-6-face ((t (:background "white"))))))
+     '(dired-subtree-depth-6-face ((t (:background "white"))))
+     '(org-block ((t (:background "white"))))
+     '(magit-diff-context-highlight ((t (:background "white"))))))
 
   (defun zxmth/load-theme (theme-key)
     (setq theme-name (alist-get theme-key zxmth/themes))
