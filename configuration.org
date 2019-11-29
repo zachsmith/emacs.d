@@ -342,8 +342,12 @@ I'd resisted this for a while but see some benefit to using vim bindings
 
 Enable auto-complete - I use the [[https://github.com/auto-complete/auto-complete][auto-complete]] package
 
+/NOTE: This code is disabled as it seems that auto-complete may not longer be
+supported. Going to try and and rely only on company mode below./
+
 #+BEGIN_SRC emacs-lisp
 (use-package auto-complete
+  :disabled
   :diminish
   :config
   (ac-config-default)
