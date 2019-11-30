@@ -630,18 +630,31 @@ Make the frame title match the current project as defined by Projectile
 (setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
-** Use Telephone Line - like Powerline...but different!
+** Use doom-modeline
+
+I appreciate that this is a pretty simple and fast modeline implementation that
+integrates with all-the-icons to make it look a little nicer.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package telephone-line
-    :init
-    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-        telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-        telephone-line-primary-right-separator 'telephone-line-cubed-right
-        telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+  (use-package doom-modeline
+    :ensure t
+    :after all-the-icons
     :config
-    (when (or (display-graphic-p) (daemonp))
-      (telephone-line-mode 1)))
+    (setq doom-modeline-icon (display-graphic-p)
+          doom-modeline-height 35
+          doom-modeline-buffer-file-name-style 'truncate-with-project
+          doom-modeline-project-detection 'projectile
+          doom-modeline-major-mode-icon t
+          doom-modeline-major-mode-color-icon t
+          doom-modeline-buffer-state-icon t
+          doom-modeline-buffer-modification-icon t
+          doom-modeline-enable-word-count '(text-mode org-mode)
+          doom-modeline-continuous-word-count-modes '(text-mode org-mode)
+          doom-modeline-buffer-encoding t
+          doom-modeline-lsp t
+          doom-modeline-modal-icon t
+          doom-modeline-indent-info t)
+    :hook (after-init . doom-modeline-mode))
 #+END_SRC
 
 ** Diminish minor modes
