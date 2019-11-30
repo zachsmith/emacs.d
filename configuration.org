@@ -432,10 +432,10 @@ I often resize buffers - bind keys to resizing that are similar to navigation
 Use /C-u #/ to make larger resize increments.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c K") 'enlarge-window)
-(global-set-key (kbd "C-c J") 'shrink-window)
-(global-set-key (kbd "C-c H") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-c L") 'shrink-window-horizontally)
+(global-set-key (kbd "<M-s-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<M-s-right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "<M-s-up>") 'enlarge-window)
+(global-set-key (kbd "<M-s-down>") 'shrink-window)
 #+END_SRC
 
 I generally want to switch to the new window after creating it.
