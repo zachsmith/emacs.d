@@ -284,12 +284,26 @@ Show git info for files in a dired buffer if they exist in a git repository.
 Dired-narrow adds some helpful filtering to dired buffers
 
 #+BEGIN_SRC emacs-lisp
-(use-package dired-narrow
-  :ensure t
-  :config
-    (bind-key "C-c C-n" #'dired-narrow)
-    (bind-key "C-c C-f" #'dired-narrow-fuzzy)
-    (bind-key "C-c C-N" #'dired-narrow-regexp))
+  (use-package dired-narrow
+    :ensure t
+    :config
+      (bind-key "C-c C-n" #'dired-narrow)
+      (bind-key "C-c C-f" #'dired-narrow-fuzzy)
+      (bind-key "C-c C-N" #'dired-narrow-regexp))
+#+END_SRC
+
+** neotree
+
+This is an emacs version of the nerdtree in vim which I used to use.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+    :ensure t
+    :config
+    (global-set-key (kbd "C-\\") 'neotree-toggle)
+    (global-set-key (kbd "C-x \\") 'neotree-find)
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
+          neo-window-width 55))
 #+END_SRC
 
 * Evil Mode
