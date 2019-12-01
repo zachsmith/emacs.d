@@ -471,12 +471,12 @@ emacs frames behave a bit more like tmux when rearranging.
 #+BEGIN_SRC emacs-lisp
 (use-package transpose-frame
   :config
-  (global-set-key (kbd "C-x M-t") 'transpose-frame)
-  (global-set-key (kbd "C-x M-SPC") 'flip-frame)
-  (global-set-key (kbd "C-x M-f") 'flop-frame)
-  (global-set-key (kbd "C-x M-r") 'rotate-frame)
-  (global-set-key (kbd "C-x M-.") 'rotate-frame-clockwise)
-  (global-set-key (kbd "C-x M-,") 'rotate-frame-anticlockwise))
+  (global-set-key (kbd "C-x [") 'transpose-frame)
+  (global-set-key (kbd "C-x <up>") 'flip-frame)
+  (global-set-key (kbd "C-x <down>") 'flop-frame)
+  (global-set-key (kbd "C-x ]") 'rotate-frame)
+  (global-set-key (kbd "C-x <right>") 'rotate-frame-clockwise)
+  (global-set-key (kbd "C-x <left>") 'rotate-frame-anticlockwise))
 #+END_SRC
 
 ** Use winner-mode
