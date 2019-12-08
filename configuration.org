@@ -401,29 +401,30 @@ depend on it.
 Use [[https://github.com/abo-abo/swiper][Ivy, Counsel, and Swiper]] for completion front-end and search
 
 #+BEGIN_SRC emacs-lisp
-(use-package ivy
-  :ensure t
-  :diminish ivy-mode
-  :bind
-  ("C-c C-r" . 'ivy-resume)
-  ("<f6>" . 'ivy-resume)
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) "))
+  (use-package ivy
+    :ensure t
+    :diminish ivy-mode
+    :bind
+    ("C-c C-r" . 'ivy-resume)
+    ("<f6>" . 'ivy-resume)
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    :bind ("M-]" . ivy-yank-word))
 
-(use-package counsel
-  :ensure t
-  :diminish counsel-mode
-  :bind
-  ("M-x" . counsel-M-x)
-  :config
-  (counsel-mode 1))
+  (use-package counsel
+    :ensure t
+    :diminish counsel-mode
+    :bind ("M-x" . counsel-M-x)
 
-(use-package swiper
-  :ensure t
-  :bind
-  ("\C-s" . 'swiper))
+    :config
+    (counsel-mode 1))
+
+  (use-package swiper
+    :ensure t
+    :bind
+    ("\C-s" . 'swiper))
 #+END_SRC
 
 ** Silver Searcher
@@ -436,6 +437,78 @@ I have gotten pretty used to using Ag and find it handy with projectile.
    (setq ag-highlight-search t
          ag-reuse-window 't
          ag-reuse-buffers 't))
+#+END_SRC
+
+** Use Prescient for command history
+
+#+BEGIN_SRC emacs-lisp
+  (use-package prescient
+    :ensure t
+    :custom
+    (prescient-history-length 50)
+    (prescient-save-file "~/.emacs.d/prescient-items")
+    (prescient-filter-method '(fuzzy initialism regexp))
+    :config
+    (prescient-persist-mode 1))
+
+  (use-package ivy-prescient
+    :ensure t
+    :after (prescient ivy)
+    :custom
+    (ivy-prescient-sort-commands
+     '(:not swiper ivy-switch-buffer counsel-switch-buffer))
+    (ivy-prescient-retain-classic-highlighting t)
+    (ivy-prescient-enable-filtering t)
+    (ivy-prescient-enable-sorting t)
+    :config
+    (defun zxmth/ivy-prescient-filters (str)
+      "Specify an exception for `prescient-filter-method'.
+
+  This new rule can be used to tailor the results of individual
+  Ivy-powered commands, using `ivy-prescient-re-builder'."
+      (let ((prescient-filter-method '(literal regexp)))
+        (ivy-prescient-re-builder str)))
+
+    (setq ivy-re-builders-alist
+          '((counsel-rg . zxmth/ivy-prescient-filters)
+            (counsel-grep . zxmth/ivy-prescient-filters)
+            (counsel-yank-pop . zxmth/ivy-prescient-filters)
+            (swiper . zxmth/ivy-prescient-filters)
+            (swiper-isearch . zxmth/ivy-prescient-filters)
+            (swiper-all . zxmth/ivy-prescient-filters)
+            (t . ivy-prescient-re-builder)))
+    (ivy-prescient-mode 1))
+#+END_SRC
+
+** Ivy Posframe for search interface customizations
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-posframe
+  :ensure t
+  :delight
+  :custom
+  (ivy-posframe-height-alist
+   '((swiper . 15)
+     (swiper-isearch . 15)
+     (t . 10)))
+  (ivy-posframe-display-functions-alist
+   '((complete-symbol . ivy-posframe-display-at-point)
+     (swiper . nil)
+     (swiper-isearch . nil)
+     (t . ivy-posframe-display-at-window-center)))
+  :config
+  (ivy-posframe-mode 1))
+#+END_SRC
+
+** Ivy Rich shows additional information
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-rich
+  :ensure t
+  :config
+  (setcdr (assq t ivy-format-functions-alist)
+          #'ivy-format-function-line)
+  (ivy-rich-mode 1))
 #+END_SRC
 
 * Switch and rebalance windows when splitting
@@ -659,7 +732,6 @@ Install icons for use in dired, ivy, and others.
     (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
     (all-the-icons-ivy-setup))
 #+END_SRC
-
 
 * UI preferences
 
