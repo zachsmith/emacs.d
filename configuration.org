@@ -480,26 +480,6 @@ I have gotten pretty used to using Ag and find it handy with projectile.
     (ivy-prescient-mode 1))
 #+END_SRC
 
-** Ivy Posframe for search interface customizations
-
-#+BEGIN_SRC emacs-lisp
-(use-package ivy-posframe
-  :ensure t
-  :delight
-  :custom
-  (ivy-posframe-height-alist
-   '((swiper . 15)
-     (swiper-isearch . 15)
-     (t . 10)))
-  (ivy-posframe-display-functions-alist
-   '((complete-symbol . ivy-posframe-display-at-point)
-     (swiper . nil)
-     (swiper-isearch . nil)
-     (t . ivy-posframe-display-at-window-center)))
-  :config
-  (ivy-posframe-mode 1))
-#+END_SRC
-
 ** Ivy Rich shows additional information
 
 #+BEGIN_SRC emacs-lisp
