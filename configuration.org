@@ -53,7 +53,7 @@ customizations are added at the end of the block.
   (sensible-defaults/offer-to-create-parent-directories-on-save)
   (sensible-defaults/apply-changes-to-highlighted-region)
   (sensible-defaults/overwrite-selected-text)
-  ;;(sensible-defaults/ensure-that-files-end-with-newline)
+  (sensible-defaults/ensure-that-files-end-with-newline)
   (sensible-defaults/confirm-closing-emacs)
   (sensible-defaults/quiet-startup)
   ;;(sensible-defaults/make-dired-file-sizes-human-readable)
@@ -68,10 +68,6 @@ customizations are added at the end of the block.
 
   ;; use all the key-bindings
   (sensible-defaults/use-all-keybindings)
-
-  ;; disable appending newline
-  (setq require-final-newline nil
-        mode-require-final-newline nil)
 #+END_SRC
 
 Show line numbers by default. If using Emacs 26 or above, use
