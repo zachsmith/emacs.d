@@ -1205,7 +1205,9 @@ Use json-mode
 Use yaml-mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode)
+  (use-package yaml-mode
+      :config
+      (add-hook 'yaml-mode-hook #'zxmth/turn-off-auto-fill))
 #+END_SRC
 
 ** Tide (TypeScript)
@@ -1393,6 +1395,16 @@ so give me a way to turn it off, too.
 (add-hook 'gfm-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
+#+END_SRC
+
+Helper function to disable auto-fill mode; the opposite of the built-in
+turn-on-auto-fill
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/turn-off-auto-fill ()
+    "Disable auto-fill"
+    (interactive)
+    (auto-fill-mode -1))
 #+END_SRC
 
 * Helpers
