@@ -68,6 +68,13 @@ customizations are added at the end of the block.
 
   ;; use all the key-bindings
   (sensible-defaults/use-all-keybindings)
+
+  ;; set require-newline to TRUE. I may consider setting to 'visit-save but that might be a bit
+  ;; too noisy - Since I am noramally working in git repos, I typically only want to add newlines to files
+  ;; I'm editing rather than have to deal with a bunch of visited files with changes that need to be saved
+  (use-package emacs
+    :config
+    (setq mode-require-final-newline t))
 #+END_SRC
 
 Show line numbers by default. If using Emacs 26 or above, use
