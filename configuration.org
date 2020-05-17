@@ -75,6 +75,11 @@ customizations are added at the end of the block.
   (use-package emacs
     :config
     (setq mode-require-final-newline t))
+
+  ;; I really don't have a use for emacs lock files and they clutter up the fs tree.
+  (use-package emacs
+    :config
+    (setq create-lockfiles nil))
 #+END_SRC
 
 Show line numbers by default. If using Emacs 26 or above, use
