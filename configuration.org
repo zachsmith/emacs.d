@@ -447,6 +447,32 @@ I have gotten pretty used to using Ag and find it handy with projectile.
          ag-reuse-buffers 't))
 #+END_SRC
 
+** Ripgrep
+
+A fast grep that supports Occur-style editing in results buffers when wgrep is added.
+
+#+BEGIN_SRC emacs-lisp
+(use-package wgrep
+  :ensure
+  :config
+  (setq wgrep-auto-save-buffer t)
+  (setq wgrep-change-readonly-file t))
+
+(use-package rg
+  :ensure
+  :after wgrep
+  :config
+  (setq rg-group-result t)
+  (setq rg-hide-command t)
+  (setq rg-show-columns nil)
+  (setq rg-show-header t)
+  (setq rg-custom-type-aliases nil)
+  (setq rg-default-alias-fallback "all"))
+
+  (global-set-key "\C-c(" 'rg)c)
+  (global-set-key "\C-c)" 'rg-menu)
+#+END_SRC
+
 ** Use Prescient for command history
 
 #+BEGIN_SRC emacs-lisp
@@ -700,7 +726,12 @@ post-theme-load hook.
      '(dired-subtree-depth-3-face ((t (:background "#272822"))))
      '(dired-subtree-depth-4-face ((t (:background "#3E3D31"))))
      '(dired-subtree-depth-5-face ((t (:background "#272822"))))
-     '(dired-subtree-depth-6-face ((t (:background "#3E3D31"))))))
+     '(dired-subtree-depth-6-face ((t (:background "#3E3D31"))))
+     '(rg-match-face ((t (:foreground "#00bfff" :weight bold)))) ;; blue
+     '(rg-filename-face ((t (:foreground "#ee7600" :weight bold)))) ;; orange
+     '(wgrep-face ((t (:foreground "#ffd700" :weight bold)))) ;; yellow
+     '(wgrep-done-face ((t (:foreground "#86C30D" :weight bold)))) ;; green
+     '(wgrep-delete-face ((t (:forground "#F70057" :weight bold)))))) ;; red
 
   (defun zxmth/post-load-light-theme (theme-name)
     "make dired-subtree look nice in light theme"
