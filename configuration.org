@@ -798,6 +798,21 @@ Install icons for use in dired, ivy, and others.
     (all-the-icons-ivy-setup))
 #+END_SRC
 
+** Title bar
+
+Simple function to toggle the visibility of the title bar. If I'm using
+full-screen or a tiling manager, I may want to turn it off.
+
+#+BEGIN_SRC emacs-lisp
+  (defun zxmth/toggle-titlebar ()
+    "Toggle the visibility of the titlebar"
+    (interactive)
+    (set-frame-parameter nil 'undecorated
+                         (not (frame-parameter nil 'undecorated))))
+
+  (global-set-key (kbd "C-x T") 'zxmth/toggle-titlebar)
+#+END_SRC
+
 * UI preferences
 
 ** Tweak window chrome
