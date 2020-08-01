@@ -1043,6 +1043,13 @@ Quickly open my index file
     (find-file org-brain-file)
     (end-of-buffer))
   (global-set-key (kbd "C-c b") 'zxmth/open-brain-file)
+
+  (defun zxmth/open-org-notes-dir ()
+    "Open the main note taking document"
+    (interactive)
+    (find-file org-notes-directory)
+    (end-of-buffer))
+  (global-set-key (kbd "C-c o") 'zxmth/open-org-notes-dir)
 #+END_SRC
 
 ** Capture template(s)
