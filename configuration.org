@@ -869,13 +869,14 @@ integrates with all-the-icons to make it look a little nicer.
 
 ** Some basic [[https://orgmode.org][Org-mode]] configurations
 
-#+BEGIN_SRC emacs-lisp
+ #+BEGIN_SRC emacs-lisp
   (global-set-key "\C-ca" 'org-agenda)
   (global-set-key "\C-cb" 'org-iswitchb)
   (setq org-log-done 'time)
   (setq org-todo-keywords
     '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "BLOCKED(b!)" "|" "DONE(d!)" "CANCELED(c@)")
-      (sequence "QUESTION(q)" "LEARNING(l)" "|" "ANSWERED(a@)" "FORGET(f)")))
+      (sequence "QUESTION(q)" "LEARNING(l)" "|" "ANSWERED(a@)" "FORGET(f)")
+      (sequence "IDEA(i)" "PLANNING(p)" "|" "PLANNED(P@/!)" "DROPPED(x@/!)")))
 
   (setq org-todo-keyword-faces
     '(("STARTED" . "#b58900")
@@ -885,7 +886,11 @@ integrates with all-the-icons to make it look a little nicer.
       ("QUESTION" . "#cb4b16")
       ("LEARNING" . "#6c71c4")
       ("ANSWERED" . "#859900")
-      ("FORGET" . "#839496")))
+      ("FORGET" . "#839496")
+      ("IDEA" . "#FFD500")
+      ("PLANNING" . "#0080FF")
+      ("PLANNED" . "#008080")
+      ("DROPPED" . "#708090")))
 #+END_SRC
 
 ** Use pretty bullets
@@ -1143,12 +1148,12 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
                   ((org-agenda-overriding-header "Waiting:")))
             (tags "TODO=\"STARTED\""
                   ((org-agenda-overriding-header "Started:")))
-            (tags "TODO=\"QUESTION\"|TODO=\"LEARNING\""
-                  ((org-agenda-overriding-header "Questions:")))
+            (tags "TODO=\"QUESTION\"|TODO=\"LEARNING\"|TODO=\"IDEA\"|TODO=\"PLANNING\""
+                  ((org-agenda-overriding-header "Questions & Ideas:")))
             (alltodo ""
                      ((org-agenda-skip-function '(or (zxmth/org-skip-subtree-if-habit)
                                                      (zxmth/org-skip-subtree-if-priority ?A)
-                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED" "BLOCKED" "QUESTION" "LEARNING"))
+                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED" "BLOCKED" "QUESTION" "LEARNING" "IDEA" "PLANNING"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))
                                                      (org-agenda-skip-subtree-if 'regexp ":ignore:")))
                       (org-agenda-overriding-header "Backlog:")))))))
