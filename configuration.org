@@ -1202,6 +1202,12 @@ Turn on spell checking for commits - I make tons of typos :-(
 
 * Programming
 
+Set a keyboard binding for toggling comments
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c C-/") 'comment-line)
+#+END_SRC
+
 ** prettier
 
    Use [[https://github.com/prettier/prettier][prettier]] to format code
@@ -1471,6 +1477,12 @@ Relies on [[https://scalameta.org/metals/docs/editors/emacs.html][metal]] which 
 
 ;; Add company-lsp backend for metals
 (use-package company-lsp)
+#+END_SRC
+
+** Rust
+
+#+BEGIN_SRC emacs-lisp
+(use-package rustic)
 #+END_SRC
 
 * Writing
