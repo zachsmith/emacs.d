@@ -957,7 +957,7 @@ I tend to organize my /brain/ file with date headers. Can't add a function call 
   (defcustom org-agenda-dir-path org-directory
     "Path to my centrailized org files that comprise my agenda")
 
-  (defcustom org-notes-directory (concat (file-name-as-directory org-directory) "notes")
+  (defcustom org-notes-directory org-directory
     "Root of where org note files are saved")
 
   (defcustom org-remote-notes-directory nil
@@ -1181,6 +1181,43 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
       (org-agenda nil "d")))
 
   (global-set-key (kbd "C-c M-a") 'zxmth/show-daily-org-agenda)
+#+END_SRC
+** Org-Roam
+
+Store org roam files in the same directory as org
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-roam-directory org-directory)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-roam-db-location (concat (file-name-as-directory org-directory) ".roam/org-roam.db"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-roam-index-file (concat (file-name-as-directory org-directory) "org-roam-index.org"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-roam-dailies-directory org-directory)
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           #'org-roam-capture--get-point
+           "* %?"
+           :file-name "daily-%<%Y-%m-%d>"
+           :head "#+title: %<%Y-%m-%d>\n\n")))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c n c") 'org-roam-capture)
+  (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-today)
+  (global-set-key (kbd "C-c n D") 'org-roam-dailies-capture-date)
+  (global-set-key (kbd "C-c n i") 'org-roam-insert)
+  (global-set-key (kbd "C-c n /") 'org-roam-find-file)
+  (global-set-key (kbd "C-c n t") 'org-roam-dailies-find-today)
+  (global-set-key (kbd "C-c n n") 'org-roam-dailies-find-next-note)
+  (global-set-key (kbd "C-c n p") 'org-roam-dailies-find-previous-note)
+  (global-set-key (kbd "C-c n b") 'org-roam-switch-to-buffer)
 #+END_SRC
 
 * Git

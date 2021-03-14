@@ -6,9 +6,11 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("marmalade" . "https://marmalade-repo.org/packages/") t)
-
 (add-to-list 'package-archives
              '("gnu" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+             '("org" . "https://orgmode.org/elpa/") t)
+
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (unless package--initialized (package-initialize))
