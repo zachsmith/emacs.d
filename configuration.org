@@ -1184,6 +1184,13 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 #+END_SRC
 ** Org-Roam
 
+Use org-roam for note taking and information organization.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-roam
+    :ensure t)
+#+END_SRC
+
 Store org roam files in the same directory as org
 
 #+BEGIN_SRC emacs-lisp
