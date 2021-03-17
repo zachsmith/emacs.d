@@ -970,7 +970,7 @@ I tend to organize my /brain/ file with date headers. Can't add a function call 
   (defcustom org-archive-location (concat (org-agenda-file-path "archive.org") "::* From %s")
     "File where completed Org tasks will be archived")
 
-  (defcustom zxmth-org-agenda-files (-non-nil (list org-index-file org-inbox-file org-habit-file org-brain-file org-notes-directory org-remote-notes-directory))
+  (defcustom zxmth-org-agenda-files (-non-nil (list org-notes-directory org-remote-notes-directory))
     "List of files to include in constructing org agenda")
 
   (setq org-agenda-files zxmth-org-agenda-files)
@@ -1179,21 +1179,19 @@ Use org-roam for note taking and information organization.
     :ensure t)
 #+END_SRC
 
-Store org roam files in the same directory as org
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-roam-directory org-directory)
-#+END_SRC
+Store the database in a hidden directory.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-roam-db-location (concat (file-name-as-directory org-directory) ".roam/org-roam.db"))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
   (setq org-roam-index-file (concat (file-name-as-directory org-directory) "org-roam-index.org"))
 #+END_SRC
 
+Store org-roam files (including dailies) in the org-directory. Keeping a flat
+file structure/single directory so that I can use this with apps like Beorg that
+[unfortunately] assume a single directory for interacting with files.
+
 #+BEGIN_SRC emacs-lisp
+  (setq org-roam-directory org-directory)
   (setq org-roam-dailies-directory org-directory)
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
@@ -1203,16 +1201,34 @@ Store org roam files in the same directory as org
            :head "#+title: %<%Y-%m-%d>\n\n")))
 #+END_SRC
 
+Setup some keys for interacting with org-roam
+
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c n c") 'org-roam-capture)
   (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-today)
   (global-set-key (kbd "C-c n D") 'org-roam-dailies-capture-date)
   (global-set-key (kbd "C-c n i") 'org-roam-insert)
-  (global-set-key (kbd "C-c n /") 'org-roam-find-file)
+  (global-set-key (kbd "C-c n f") 'org-roam-find-file)
   (global-set-key (kbd "C-c n t") 'org-roam-dailies-find-today)
   (global-set-key (kbd "C-c n n") 'org-roam-dailies-find-next-note)
   (global-set-key (kbd "C-c n p") 'org-roam-dailies-find-previous-note)
   (global-set-key (kbd "C-c n b") 'org-roam-switch-to-buffer)
+#+END_SRC
+
+** Use deft for searching org files
+
+Easily searching across all of my org files is very handy. I tend to only write
+in /org/ but also support /txt/ and /markdown/ files in case I just want to toss
+some in there.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package deft
+    :ensure t
+    :config
+    (setq deft-extensions '("txt" "org" "md" "markdown"))
+    (setq deft-directory org-directory))
+
+  (global-set-key (kbd "C-c n /") 'deft)
 #+END_SRC
 
 * Git
