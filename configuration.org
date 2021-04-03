@@ -1522,6 +1522,7 @@ Relies on [[https://scalameta.org/metals/docs/editors/emacs.html][metal]] which 
   ;; Optional - enable lsp-mode automatically in scala files
   :hook (scala-mode . lsp)
   :config (setq lsp-prefer-flymake nil))
+#+END_SRC
 
 ** Rust
 
