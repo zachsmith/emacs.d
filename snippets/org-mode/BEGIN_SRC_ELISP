@@ -5,3 +5,4 @@
 #+BEGIN_SRC emacs-lisp
 $>${code}
 #+END_SRC
+$0

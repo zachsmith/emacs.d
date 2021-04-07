@@ -1,0 +1,8 @@
+# key: quote
+# name: QUOTE_BOCK
+# --
+${1:#+name: $2}
+#+BEGIN_QUOTE
+${quote}
+#+END_QUOTE
+$0
