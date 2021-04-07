@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: IDEA
+# key: <i
+# --
+IDEA ${idea}
