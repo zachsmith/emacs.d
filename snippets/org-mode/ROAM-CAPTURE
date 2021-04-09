@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ROAM-CAPTURE
+# key: <rc
+# --
+
+${1:#+roam_key: $2
+}
+$0
