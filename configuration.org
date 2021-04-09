@@ -862,7 +862,7 @@ integrates with all-the-icons to make it look a little nicer.
    (global-set-key "\C-cb" 'org-iswitchb)
    (setq org-log-done 'time)
    (setq org-todo-keywords
-         '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "BLOCKED(b!)" "|" "DONE(d!)" "CANCELED(c@)")
+         '((sequence "TODO(t)" "PROJECT(x)" "STARTED(s!)" "WAITING(w@/!)" "BLOCKED(b!)" "|" "DONE(d!)" "CANCELED(c@)")
            (sequence "QUESTION(q)" "LEARNING(l)" "|" "ANSWERED(a@)" "FORGET(f)")
            (sequence "IDEA(i)" "PLANNING(p)" "|" "PLANNED(P@/!)" "DROPPED(x@/!)")))
 
@@ -878,7 +878,8 @@ integrates with all-the-icons to make it look a little nicer.
            ("IDEA" . "#FFD500")
            ("PLANNING" . "#0080FF")
            ("PLANNED" . "#008080")
-           ("DROPPED" . "#708090")))
+           ("DROPPED" . "#708090")
+           ("PROJECT" . "#23AC79")))
 
    (add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
    (add-hook 'org-mode-hook (lambda () (setq-local yas-indent-line 'fixed)))
@@ -1124,12 +1125,14 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
                   ((org-agenda-overriding-header "Waiting:")))
             (tags "TODO=\"STARTED\""
                   ((org-agenda-overriding-header "Started:")))
+            (tags "TODO=\"PROJECT\""
+                  ((org-agenda-overriding-header "Projects:")))
             (tags "TODO=\"QUESTION\"|TODO=\"LEARNING\"|TODO=\"IDEA\"|TODO=\"PLANNING\""
                   ((org-agenda-overriding-header "Questions & Ideas:")))
             (alltodo ""
                      ((org-agenda-skip-function '(or (zxmth/org-skip-subtree-if-habit)
                                                      (zxmth/org-skip-subtree-if-priority ?A)
-                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED" "BLOCKED" "QUESTION" "LEARNING" "IDEA" "PLANNING"))
+                                                     (zxmth/org-skip-subtree-if-state-in '("WAITING" "STARTED" "BLOCKED" "QUESTION" "LEARNING" "IDEA" "PLANNING" "PROJECT"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))
                                                      (org-agenda-skip-subtree-if 'regexp ":ignore:")))
                       (org-agenda-overriding-header "Backlog:")))))))
