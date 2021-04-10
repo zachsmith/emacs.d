@@ -1197,6 +1197,7 @@ Setup some keys for interacting with org-roam
   (global-set-key (kbd "C-c n n") 'org-roam-dailies-find-next-note)
   (global-set-key (kbd "C-c n p") 'org-roam-dailies-find-previous-note)
   (global-set-key (kbd "C-c n b") 'org-roam-switch-to-buffer)
+  (global-set-key (kbd "C-c n #") 'org-roam-tag-add)
 #+END_SRC
 
 ** Use deft for searching org files
