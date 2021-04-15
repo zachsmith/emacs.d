@@ -814,12 +814,6 @@ I don't usually use the menu or scroll bar, and they take up useful space.
     (scroll-bar-mode -1))
 #+END_SRC
 
-Make the frame title match the current project as defined by Projectile
-
-#+BEGIN_SRC emacs-lisp
-(setq frame-title-format '((:eval (projectile-project-name))))
-#+END_SRC
-
 ** Use doom-modeline
 
 I appreciate that this is a pretty simple and fast modeline implementation that
@@ -1425,7 +1419,9 @@ Use Projectile to help manage files related to projects.
     (setq projectile-mode-line
           '(:eval
             (format " [%s]"
-                    (projectile-project-name)))))
+                    (projectile-project-name))))
+    :after
+    (setq frame-title-format '((:eval (projectile-project-name)))))
 #+END_SRC
 
 Use projectile-ag to search project for symbol under the cursor
