@@ -769,7 +769,7 @@ Install icons for use in dired, ivy, and others.
 #+BEGIN_SRC emacs-lisp
 (use-package all-the-icons
   :ensure t
-  :defer 0.5)
+  :defer t)
 
 (use-package all-the-icons-dired
   :ensure t
@@ -1403,7 +1403,7 @@ Use yaml-mode
   (use-package php-mode
     :mode "\\.php\\'"
     :ensure t
-    :defer 1
+    :defer t
     :config
     (add-hook 'php-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
@@ -1415,7 +1415,7 @@ Use Projectile to help manage files related to projects.
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :defer 1
+    :defer t
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
