@@ -1182,7 +1182,7 @@ Use org-roam for note taking and information organization.
        ("C-c n p" . org-roam-dailies-find-previous-note)
        ("C-c n b" . org-roam-switch-to-buffer)
        ("C-c n #" . org-roam-tag-add)
-       ("C-c n !" . org-roam-buffer-activate)))
+       ("C-c n !" . org-roam-buffer-toggle-display)))
 #+END_SRC
 
 ** Use deft for searching org files
