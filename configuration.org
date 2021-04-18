@@ -1159,7 +1159,7 @@ Use org-roam for note taking and information organization.
       (after-init . org-roam-mode)
       :config
       (setq org-roam-directory
-            (concat (file-name-as-directory org-directory) "zk"))
+            (file-truename (concat (file-name-as-directory org-directory) "zk")))
       (setq org-roam-db-location
             (concat (file-name-as-directory org-roam-directory) ".roam/org-roam.db"))
       (setq org-roam-index-file
