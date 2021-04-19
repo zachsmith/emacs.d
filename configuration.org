@@ -1222,6 +1222,8 @@ some in there.
     :hook
     (company-mode . yas-reload-all)
     (company-mode . yas-minor-mode))
+
+(add-to-list 'warning-suppress-types '(yasnippet backquote-change))
 #+END_SRC
 
 * Git

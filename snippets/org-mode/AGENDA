@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: agenda
+# key: <agenda
+# --
+
+** Agenda [/]
+- [ ] $0

@@ -1,0 +1,6 @@
+# key: <da
+# name: DateAgenda
+# --
+* `(format-time-string "%A, %B %d, %Y")`
+** Agenda [/]
+    - [ ] $0
