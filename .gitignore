@@ -11,4 +11,5 @@ projectile.cache
 recentf
 transient/
 local.el
+.mc-lists.el
 .org-id-locations

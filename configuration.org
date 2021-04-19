@@ -769,7 +769,7 @@ Install icons for use in dired, ivy, and others.
 #+BEGIN_SRC emacs-lisp
 (use-package all-the-icons
   :ensure t
-  :defer 0.5)
+  :defer t)
 
 (use-package all-the-icons-dired
   :ensure t
@@ -812,12 +812,6 @@ I don't usually use the menu or scroll bar, and they take up useful space.
   (menu-bar-mode 0)
   (when (or (window-system) (daemonp))
     (scroll-bar-mode -1))
-#+END_SRC
-
-Make the frame title match the current project as defined by Projectile
-
-#+BEGIN_SRC emacs-lisp
-(setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
 ** Use doom-modeline
@@ -1161,43 +1155,35 @@ Use org-roam for note taking and information organization.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-roam
-    :ensure t)
-#+END_SRC
-
-Store the database in a hidden directory.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-roam-db-location (concat (file-name-as-directory org-directory) ".roam/org-roam.db"))
-  (setq org-roam-index-file (concat (file-name-as-directory org-directory) "org-roam-index.org"))
-#+END_SRC
-
-Store org-roam files (including dailies) in the org-directory. Keeping a flat
-file structure/single directory so that I can use this with apps like Beorg that
-[unfortunately] assume a single directory for interacting with files.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-roam-directory org-directory)
-  (setq org-roam-dailies-directory org-directory)
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           #'org-roam-capture--get-point
-           "* %?"
-           :file-name "daily-%<%Y-%m-%d>"
-           :head "#+title: %<%Y-%m-%d>\n\n")))
-#+END_SRC
-
-Setup some keys for interacting with org-roam
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c n c") 'org-roam-capture)
-  (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-today)
-  (global-set-key (kbd "C-c n D") 'org-roam-dailies-capture-date)
-  (global-set-key (kbd "C-c n i") 'org-roam-insert)
-  (global-set-key (kbd "C-c n f") 'org-roam-find-file)
-  (global-set-key (kbd "C-c n t") 'org-roam-dailies-find-today)
-  (global-set-key (kbd "C-c n n") 'org-roam-dailies-find-next-note)
-  (global-set-key (kbd "C-c n p") 'org-roam-dailies-find-previous-note)
-  (global-set-key (kbd "C-c n b") 'org-roam-switch-to-buffer)
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :config
+      (setq org-roam-directory
+            (file-truename (concat (file-name-as-directory org-directory) "zk")))
+      (setq org-roam-db-location
+            (concat (file-name-as-directory org-roam-directory) ".roam/org-roam.db"))
+      (setq org-roam-index-file
+            (concat (file-name-as-directory org-roam-directory) "org-roam-index.org"))
+      :custom
+      (org-roam-dailies-capture-templates
+       '(("d" "default" entry
+          #'org-roam-capture--get-point
+          "* %?"
+          :file-name "daily/%<%Y-%m-%d>"
+          :head "#+title: %<%Y-%m-%d>\n\n")))
+      :bind
+      (("C-c n c" . org-roam-capture)
+       ("C-c n d" . org-roam-dailies-capture-today)
+       ("C-c n D" . org-roam-dailies-capture-date)
+       ("C-c n i" . org-roam-insert)
+       ("C-c n f" . org-roam-find-file)
+       ("C-c n t" . org-roam-dailies-find-today)
+       ("C-c n n" . org-roam-dailies-find-next-note)
+       ("C-c n p" . org-roam-dailies-find-previous-note)
+       ("C-c n b" . org-roam-switch-to-buffer)
+       ("C-c n #" . org-roam-tag-add)
+       ("C-c n !" . org-roam-buffer-toggle-display)))
 #+END_SRC
 
 ** Use deft for searching org files
@@ -1209,9 +1195,10 @@ some in there.
 #+BEGIN_SRC emacs-lisp
   (use-package deft
     :ensure t
+    :after org-roam
     :config
     (setq deft-extensions '("txt" "org" "md" "markdown"))
-    (setq deft-directory org-directory))
+    (setq deft-directory org-roam-directory))
 
   (global-set-key (kbd "C-c n /") 'deft)
 #+END_SRC
@@ -1406,7 +1393,7 @@ Use yaml-mode
   (use-package php-mode
     :mode "\\.php\\'"
     :ensure t
-    :defer 1
+    :defer t
     :config
     (add-hook 'php-mode-hook #'zxmth/disable-truncate-lines))
 #+END_SRC
@@ -1418,7 +1405,7 @@ Use Projectile to help manage files related to projects.
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :defer 1
+    :defer t
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
@@ -1428,7 +1415,9 @@ Use Projectile to help manage files related to projects.
     (setq projectile-mode-line
           '(:eval
             (format " [%s]"
-                    (projectile-project-name)))))
+                    (projectile-project-name))))
+    :after
+    (setq frame-title-format '((:eval (projectile-project-name)))))
 #+END_SRC
 
 Use projectile-ag to search project for symbol under the cursor
