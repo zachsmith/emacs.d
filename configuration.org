@@ -1359,7 +1359,8 @@ Use json-mode
 #+BEGIN_SRC emacs-lisp
   (use-package json-mode
     :config
-    (add-hook 'json-mode-hook #'zxmth/disable-truncate-lines))
+    (add-hook 'json-mode-hook #'zxmth/disable-truncate-lines)
+    (setq js-indent-level 2))
 #+END_SRC
 
 ** YAML
