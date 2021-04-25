@@ -45,7 +45,7 @@ customizations are added at the end of the block.
   (sensible-defaults/backup-to-temp-directory)
   (sensible-defaults/open-files-from-home-directory)
   (sensible-defaults/increase-gc-threshold)
-  (sensible-defaults/delete-trailing-whitespace)
+  ;;(sensible-defaults/delete-trailing-whitespace)
   (sensible-defaults/treat-camelcase-as-separate-words)
   (sensible-defaults/automatically-follow-symlinks)
   (sensible-defaults/make-scripts-executable)
