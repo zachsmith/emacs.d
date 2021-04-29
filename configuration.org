@@ -1200,7 +1200,8 @@ some in there.
     :after org-roam
     :config
     (setq deft-extensions '("txt" "org" "md" "markdown"))
-    (setq deft-directory org-roam-directory))
+    (setq deft-directory org-roam-directory)
+    (setq deft-recursive t))
 
   (global-set-key (kbd "C-c n /") 'deft)
 #+END_SRC
