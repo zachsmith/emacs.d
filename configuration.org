@@ -208,7 +208,7 @@ Use shell PATH when launched from graphical environments
 
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Zachary Smith"
-      user-mail-address "z@zxmth.us")
+      user-mail-address "z@xmyth.me")
 #+END_SRC
 
 * Utility Functions
