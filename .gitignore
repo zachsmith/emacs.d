@@ -13,3 +13,5 @@ transient/
 local.el
 .mc-lists.el
 .org-id-locations
+.cache
+eln-cache
