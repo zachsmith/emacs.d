@@ -1146,97 +1146,8 @@ tasks marked as waiting, and then a list of all of my remaining TODOs
 
   (global-set-key (kbd "C-c M-a") 'zxmth/show-daily-org-agenda)
 #+END_SRC
-** Org-Roam
 
-Use org-roam for note taking and information organization.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-roam-v2-ack t)
-  (use-package org-roam
-    :ensure t
-    :hook
-    (after-init . org-roam-setup)
-
-    :config
-    (defcustom zxmth-org-roam-directory
-      (file-truename (concat (file-name-as-directory org-directory) "zk"))
-      "Set to org-roam-directory for the machine I'm on")
-    (setq org-roam-directory zxmth-org-roam-directory)
-    (setq org-roam-db-location
-          (concat (file-name-as-directory org-roam-directory) ".roam/org-roam.db"))
-    (setq org-roam-index-file
-          (concat (file-name-as-directory org-roam-directory) "org-roam-index.org"))
-    (cl-defmethod org-roam-node-directories ((node org-roam-node))
-      (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-          (format "(%s)" (car (f-split dirs)))
-        ""))
-
-    (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
-      (let* ((count (caar (org-roam-db-query
-                           [:select (funcall count source)
-                                    :from links
-                                    :where (= dest $s1)
-                                    :and (= type "id")]
-                           (org-roam-node-id node)))))
-        (format "[%d]" count)))
-
-    (setq org-roam-node-display-template "${directories:10} ${tags:10} ${title:100} ${backlinkscount:6}")
-
-    (add-to-list 'display-buffer-alist
-                 '("\\*org-roam\\*"
-                   (display-buffer-in-direction)
-                   (direction . right)
-                   (window-width . 0.33)
-                   (window-height . fit-window-to-buffer)))
-
-    (add-hook 'org-roam-find-file-hook #'org-hide-properties)
-
-    :bind
-    (("C-c n c" . org-roam-capture)
-     ("C-c n d" . org-roam-dailies-capture-today)
-     ("C-c n D" . org-roam-dailies-capture-date)
-     ("C-c n i" . org-roam-node-insert)
-     ("C-c n f" . org-roam-node-find)
-     ("C-c n t" . org-roam-dailies-goto-today)
-     ("C-c n n" . org-roam-dailies-find-next-note)
-     ("C-c n p" . org-roam-dailies-find-previous-note)
-     ("C-c n +" . org-roam-tag-add)
-     ("C-c n -" . org-roam-tag-remove)
-     ("C-c n !" . org-roam-buffer-toggle)
-     ("C-c n ?" . org-toggle-properties)))
-#+END_SRC
-
-org-roam v2 introduces a requirement for :PROPERTIES: which aren't great to look
-at. This allows those properties to be toggled on and off. [[https://github.com/org-roam/org-roam/wiki/Hitchhiker's-Rough-Guide-to-Org-roam-V2#hiding-the-properties-drawer][(copied from here)]]
-
-#+BEGIN_SRC emacs-lisp
-  (defun org-hide-properties ()
-    "Hide all org-mode headline property drawers in buffer. Could be slow if it has a lot of overlays."
-    (interactive)
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward
-              "^ *:properties:\n\\( *:.+?:.*\n\\)+ *:end:\n" nil t)
-        (let ((ov_this (make-overlay (match-beginning 0) (match-end 0))))
-          (overlay-put ov_this 'display "")
-          (overlay-put ov_this 'hidden-prop-drawer t))))
-    (put 'org-toggle-properties-hide-state 'state 'hidden))
-
-  (defun org-show-properties ()
-    "Show all org-mode property drawers hidden by org-hide-properties."
-    (interactive)
-    (remove-overlays (point-min) (point-max) 'hidden-prop-drawer t)
-    (put 'org-toggle-properties-hide-state 'state 'shown))
-
-  (defun org-toggle-properties ()
-    "Toggle visibility of property drawers."
-    (interactive)
-    (if (eq (get 'org-toggle-properties-hide-state 'state) 'hidden)
-        (org-show-properties)
-      (org-hide-properties)))
-#+END_SRC
-
-** Use deft for searching org files
+** Use deft for searching org and markdown files
 
 Easily searching across all of my org files is very handy. I tend to only write
 in /org/ but also support /txt/ and /markdown/ files in case I just want to toss
@@ -1245,10 +1156,9 @@ some in there.
 #+BEGIN_SRC emacs-lisp
   (use-package deft
     :ensure t
-    :after org-roam
     :config
     (setq deft-extensions '("txt" "org" "md" "markdown"))
-    (setq deft-directory org-roam-directory)
+    (setq deft-directory org-notes-directory)
     (setq deft-use-filename-as-title t)
     (setq deft-recursive t))
 
