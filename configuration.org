@@ -173,6 +173,14 @@ Helper function and global key to reload init.el
   (global-set-key (kbd "C-x !") 'zxmth/reload-init-el)
 #+END_SRC
 
+** Time
+
+Show the time in 24 hour format
+
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (display-time-mode)
+#+END_SRC
 * Packages
 
 ** Compile packages and prefer the newest version
@@ -676,7 +684,6 @@ Bind additional keys for window navigation
   (global-set-key (kbd "C-x 2") 'zxmth/split-window-below-and-switch)
   (global-set-key (kbd "C-c C-SPC h") 'zxmth/split-window-right-and-switch)
 #+END_SRC
-
 
 * Multiple Cursors
 
@@ -1538,28 +1545,6 @@ turn-on-auto-fill
     "Disable auto-fill"
     (interactive)
     (auto-fill-mode -1))
-#+END_SRC
-
-* Helpers
-
-** Google This
-
-Searching from within emacs comes in handy
-
-#+BEGIN_SRC emacs-lisp
-  (use-package google-this
-    :ensure t
-    :config
-    (global-set-key (kbd "C-c /") 'google-this-mode-submap))
-#+END_SRC
-
-** Time
-
-Show the time in 24 hour format
-
-#+BEGIN_SRC emacs-lisp
-  (setq display-time-24hr-format t)
-  (display-time-mode)
 #+END_SRC
 
 /That's it for now!/
