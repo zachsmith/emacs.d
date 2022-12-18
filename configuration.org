@@ -888,6 +888,9 @@ integrates with all-the-icons to make it look a little nicer.
 
    (add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
    (add-hook 'org-mode-hook (lambda () (setq-local yas-indent-line 'fixed)))
+
+   ;; disable Table of Contents in exported docs by default
+   (setq org-export-with-toc nil)
 #+END_SRC
 
 ** Use pretty bullets
