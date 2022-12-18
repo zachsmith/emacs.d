@@ -639,9 +639,6 @@ I generally want to switch to the new window after creating it.
     (split-window-right)
     (balance-windows)
     (other-window 1))
-
-  (global-set-key (kbd "C-x 2") 'zxmth/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") 'zxmth/split-window-right-and-switch)
 #+END_SRC
 
 [[https://github.com/dimitri/switch-window][switch-window]] is great for jumping around windows
@@ -652,16 +649,33 @@ I generally want to switch to the new window after creating it.
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-minibuffer-shortcut ?z)
     (global-set-key (kbd "C-c C-SPC s") 'switch-window)
+    (global-set-key (kbd "C-c C-SPC SPC") 'switch-window)
     (global-set-key (kbd "C-c C-SPC m") 'switch-window-then-maximize)
-    (global-set-key (kbd "C-c C-SPC v") 'zxmth/split-window-below-and-switch)
+
     (global-set-key (kbd "C-c C-SPC V") 'switch-window-then-split-below)
-    (global-set-key (kbd "C-c C-SPC h") 'zxmth/split-window-right-and-switch)
+
     (global-set-key (kbd "C-c C-SPC H") 'switch-window-then-split-right)
     (global-set-key (kbd "C-c C-SPC k") 'switch-window-then-delete)
     (global-set-key (kbd "C-c C-SPC f") 'switch-window-then-find-file)
     (global-set-key (kbd "C-c C-SPC b") 'switch-window-then-display-buffer)
     (global-set-key (kbd "C-c C-SPC K") 'switch-window-then-kill-buffer))
 #+END_SRC
+
+Bind additional keys for window navigation
+
+#+BEGIN_SRC emacs-lisp
+  ;; delete the focused window
+  (global-set-key (kbd "C-c 0") 'delete-window)
+
+  ;; maximixe the focused window
+  (global-set-key (kbd "C-c 1") 'delete-other-windows)
+
+  ;; split window and then focus on the new split
+  (global-set-key (kbd "C-c C-SPC v") 'zxmth/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 2") 'zxmth/split-window-below-and-switch)
+  (global-set-key (kbd "C-c C-SPC h") 'zxmth/split-window-right-and-switch)
+#+END_SRC
+
 
 * Multiple Cursors
 
