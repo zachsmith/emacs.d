@@ -1219,6 +1219,16 @@ Set a keyboard binding for toggling comments
 (global-set-key (kbd "C-c C-/") 'comment-line)
 #+END_SRC
 
+** Flycheck
+
+Default syntax checking for a variety of file types
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+#+END_SRC
+
 ** prettier
 
    Use [[https://github.com/prettier/prettier][prettier]] to format code
@@ -1263,9 +1273,7 @@ Use web-mode for a host of basic web-y file formats
     (add-hook 'web-mode-hook
               (lambda ()
                 (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                  (setup-tide-mode))))
-    ;; enable typescript-tslint checker
-    (flycheck-add-mode 'typescript-tslint 'web-mode))
+                  (setup-tide-mode)))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
