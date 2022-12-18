@@ -650,7 +650,7 @@ I generally want to switch to the new window after creating it.
     (setq switch-window-minibuffer-shortcut ?z)
     (global-set-key (kbd "C-c C-SPC s") 'switch-window)
     (global-set-key (kbd "C-c C-SPC SPC") 'switch-window)
-    (global-set-key (kbd "C-c C-SPC m") 'switch-window-then-maximize)
+    (global-set-key (kbd "C-c C-SPC M") 'switch-window-then-maximize)
 
     (global-set-key (kbd "C-c C-SPC V") 'switch-window-then-split-below)
 
@@ -669,6 +669,7 @@ Bind additional keys for window navigation
 
   ;; maximixe the focused window
   (global-set-key (kbd "C-c 1") 'delete-other-windows)
+  (global-set-key (kbd "C-c C-SPC m") 'delete-other-windows)
 
   ;; split window and then focus on the new split
   (global-set-key (kbd "C-c C-SPC v") 'zxmth/split-window-below-and-switch)
