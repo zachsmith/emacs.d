@@ -1376,17 +1376,6 @@ Use yaml-mode
            (typescript-mode . zxmth/disable-truncate-lines)))
 #+END_SRC
 
-** PHP
-
-#+BEGIN_SRC emacs-lisp
-  (use-package php-mode
-    :mode "\\.php\\'"
-    :ensure t
-    :defer t
-    :config
-    (add-hook 'php-mode-hook #'zxmth/disable-truncate-lines))
-#+END_SRC
-
 ** Projectile
 
 Use Projectile to help manage files related to projects.
