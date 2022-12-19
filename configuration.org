@@ -69,31 +69,15 @@ customizations are added at the end of the block.
   ;; use all the key-bindings
   (sensible-defaults/use-all-keybindings)
 
-  ;; set require-newline to TRUE. I may consider setting to 'visit-save but that might be a bit
-  ;; too noisy - Since I am noramally working in git repos, I typically only want to add newlines to files
-  ;; I'm editing rather than have to deal with a bunch of visited files with changes that need to be saved
   (use-package emacs
     :config
-    (setq mode-require-final-newline t))
-
-  ;; I really don't have a use for emacs lock files and they clutter up the fs tree.
-  (use-package emacs
-    :config
+    ;; set require-newline to TRUE. I may consider setting to 'visit-save but that might be a bit
+    ;; too noisy - Since I am noramally working in git repos, I typically only want to add newlines to files
+    ;; I'm editing rather than have to deal with a bunch of visited files with changes that need to be saved
+    (setq mode-require-final-newline t)
+    ;; I really don't have a use for emacs lock files and they clutter up the fs tree.  
     (setq create-lockfiles nil))
 #+END_SRC
-
-Show line numbers by default. If using Emacs 26 or above, use
-/global-display-line-numbers-mode/. Otherwise, use [[https://elpa.gnu.org/packages/nlinum.html][nlinum]].
-
-#+BEGIN_SRC emacs-lisp
-  (if (< emacs-major-version 26)
-      (use-package nlinum
-        :diminish
-        :config
-        (global-nlinum-mode t)
-        (setq nlinum-format "%d "))
-    (global-display-line-numbers-mode))
-#+end_src
 
 Start the server by default
 #+BEGIN_SRC emacs-lisp
@@ -103,10 +87,11 @@ Start the server by default
     (server-start))
 #+END_SRC
 
-I like to see the column numbers as well as line numbers
+I like to see line and column numbers by default
 
 #+BEGIN_SRC emacs-lisp
-(column-number-mode)
+(global-display-line-numbers-mode 1)
+(column-number-mode 1)
 #+END_SRC
 
 Use spaces instead of tabs and set the default tabstop to 2
@@ -378,29 +363,7 @@ I'd resisted this for a while but see some benefit to using vim bindings
 #+END_SRC
 
 * Searching
-
-** Auto-Complete
-
-Enable auto-complete - I use the [[https://github.com/auto-complete/auto-complete][auto-complete]] package
-
-/NOTE: This code is disabled as it seems that auto-complete may not longer be
-supported. Going to try and and rely only on company mode below./
-
-#+BEGIN_SRC emacs-lisp
-(use-package auto-complete
-  :disabled
-  :diminish
-  :config
-  (ac-config-default)
-  (add-to-list 'ac-modes 'name-of-mod)
-  (define-globalized-minor-mode zxmth/global-auto-complete-mode
-    auto-complete-mode (lambda ()
-                       (if (not (minibufferp (current-buffer)))
-                         (auto-complete-mode 1))
-                       ))
-  (zxmth/global-auto-complete-mode t))
-#+END_SRC
-
+** Company
 Use [[http://company-mode.github.io/][company-mode]] for some auto-complete functionality for packages that
 depend on it.
 
