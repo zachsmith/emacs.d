@@ -619,17 +619,15 @@ I generally want to switch to the new window after creating it.
     :config
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-minibuffer-shortcut ?z)
-    (global-set-key (kbd "C-c C-SPC s") 'switch-window)
-    (global-set-key (kbd "C-c C-SPC SPC") 'switch-window)
-    (global-set-key (kbd "C-c C-SPC M") 'switch-window-then-maximize)
-
-    (global-set-key (kbd "C-c C-SPC V") 'switch-window-then-split-below)
-
-    (global-set-key (kbd "C-c C-SPC H") 'switch-window-then-split-right)
-    (global-set-key (kbd "C-c C-SPC k") 'switch-window-then-delete)
-    (global-set-key (kbd "C-c C-SPC f") 'switch-window-then-find-file)
-    (global-set-key (kbd "C-c C-SPC b") 'switch-window-then-display-buffer)
-    (global-set-key (kbd "C-c C-SPC K") 'switch-window-then-kill-buffer))
+    (global-set-key (kbd "C-c SPC s") 'switch-window)
+    (global-set-key (kbd "C-c SPC SPC") 'switch-window)
+    (global-set-key (kbd "C-c SPC M") 'switch-window-then-maximize)
+    (global-set-key (kbd "C-c SPC V") 'switch-window-then-split-below)
+    (global-set-key (kbd "C-c SPC H") 'switch-window-then-split-right)
+    (global-set-key (kbd "C-c SPC k") 'switch-window-then-delete)
+    (global-set-key (kbd "C-c SPC f") 'switch-window-then-find-file)
+    (global-set-key (kbd "C-c SPC b") 'switch-window-then-display-buffer)
+    (global-set-key (kbd "C-c SPC K") 'switch-window-then-kill-buffer))
 #+END_SRC
 
 Bind additional keys for window navigation
@@ -637,15 +635,18 @@ Bind additional keys for window navigation
 #+BEGIN_SRC emacs-lisp
   ;; delete the focused window
   (global-set-key (kbd "C-c 0") 'delete-window)
+  (global-set-key (kbd "C-c SPC 0") 'delete-window)
+  (global-set-key (kbd "C-c SPC d") 'delete-window) ;; preferred
 
   ;; maximixe the focused window
   (global-set-key (kbd "C-c 1") 'delete-other-windows)
-  (global-set-key (kbd "C-c C-SPC m") 'delete-other-windows)
+  (global-set-key (kbd "C-c SPC 1") 'delete-other-windows)
+  (global-set-key (kbd "C-c SPC m") 'delete-other-windows) ;; preferred
 
   ;; split window and then focus on the new split
-  (global-set-key (kbd "C-c C-SPC v") 'zxmth/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 2") 'zxmth/split-window-below-and-switch)
-  (global-set-key (kbd "C-c C-SPC h") 'zxmth/split-window-right-and-switch)
+  (global-set-key (kbd "C-c SPC v") 'zxmth/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 2") 'zxmth/split-window-below-and-switch) ;; deprecated
+  (global-set-key (kbd "C-c SPC h") 'zxmth/split-window-right-and-switch)
 #+END_SRC
 
 * Multiple Cursors
